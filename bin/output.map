@@ -76,10 +76,10 @@ C:   0000008A  s_GSFINAL
 C:   0000008D  s_CSEG                          
 C:   000000B8  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   00000F9F  l_CSEG                          
-C:   0000102C  s_CONST                         
+C:   00000FC2  l_CSEG                          
+C:   0000104F  s_CONST                         
 C:   000020A2  l_CONST                         
-C:   000030CE  s_XINIT                         
+C:   000030F1  s_XINIT                         
 C:   00006000  s_PSEG                          
 C:   00006000  s_XSEG                          
 C:   00006007  s_XISEG                         
@@ -379,46 +379,46 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000008D    00000F9F =        3999. bytes (REL,CON,CODE)
+CSEG                                0000008D    00000FC2 =        4034. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   0000008D  _InitHardware                      main
-C:   00000175  _DoUSBRelatedInit                  main
-C:   000001AF  _SendKey                           main
+C:   00000178  _DoUSBRelatedInit                  main
+C:   000001B0  _SendKey                           main
 C:   000001F7  _main                              main
 C:   000002FD  _tmr1isr                           timers
-C:   0000031B  _InitTicks                         timers
-C:   0000035E  _GetTickCount                      timers
-C:   00000362  _tmr0isr                           timers
-C:   000003E2  _SetLEDThreshold                   timers
-C:   000003E7  _InitLED                           timers
-C:   00000400  _LEDBlink                          timers
-C:   0000040A  _LEDOff                            timers
-C:   00000414  _SetDMA                            usb
-C:   00000450  _SendControlResponse               usb
-C:   0000047E  _SendData0                         usb
-C:   000004DF  _SendData1                         usb
-C:   0000064A  _InitUSB                           usb
-C:   00000724  _usb_isr                           usb
-C:   00000889  _ep_isr                            usb
-C:   00000938  _HandleUSBEvents                   usb
-C:   00000B4E  _EP0ACK                            control
-C:   00000C66  _HandleStandardRequest             control
-C:   00000CAD  _HandleClassRequest                control
-C:   00000CDA  _HandleVendorRequest               control
-C:   00000CDE  _HandleCDB                         scsi
-C:   00000F8D  _memset                            _memset
-C:   00000FAC  __gptrput                          _gptrput
-C:   00000FC7  __divuint                          _divuint
-C:   00000FF0  __divsint                          _divsint
-C:   00001028  __sdcc_external_startup            _startup
+C:   0000030A  _InitTicks                         timers
+C:   0000034F  _GetTickCount                      timers
+C:   00000353  _tmr0isr                           timers
+C:   000003DA  _SetLEDThreshold                   timers
+C:   000003DF  _InitLED                           timers
+C:   000003F8  _LEDBlink                          timers
+C:   00000402  _LEDOff                            timers
+C:   0000040C  _SetDMA                            usb
+C:   00000448  _SendControlResponse               usb
+C:   00000473  _SendData0                         usb
+C:   000004D2  _SendData1                         usb
+C:   00000636  _InitUSB                           usb
+C:   0000071E  _usb_isr                           usb
+C:   00000885  _ep_isr                            usb
+C:   00000954  _HandleUSBEvents                   usb
+C:   00000B6E  _EP0ACK                            control
+C:   00000C83  _HandleStandardRequest             control
+C:   00000CCA  _HandleClassRequest                control
+C:   00000CF7  _HandleVendorRequest               control
+C:   00000CFB  _HandleCDB                         scsi
+C:   00000FB0  _memset                            _memset
+C:   00000FCF  __gptrput                          _gptrput
+C:   00000FEA  __divuint                          _divuint
+C:   00001013  __divsint                          _divsint
+C:   0000104B  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               0000102C    000020A2 =        8354. bytes (REL,CON,CODE)
+CONST                               0000104F    000020A2 =        8354. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

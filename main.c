@@ -21,6 +21,7 @@ volatile BYTE send_keys_enabled = 0;
 DWORD wait_counter = KEY_DELAY;
 DWORD wait_tick;
 
+
 void InitHardware()
 {
 	//Set up RAM mapping just beyond our own code

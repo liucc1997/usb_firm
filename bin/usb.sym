@@ -250,9 +250,9 @@ Symbol Table
     _GPIO0OUT                                                   =  00FA15 G
     _HandleCDB                                                     ****** GX
     _HandleClassRequest                                            ****** GX
- 17 _HandleControlRequest                                          0004E7 R
+ 17 _HandleControlRequest                                          0004F9 R
     _HandleStandardRequest                                         ****** GX
- 17 _HandleUSBEvents                                               000524 GR
+ 17 _HandleUSBEvents                                               000548 GR
     _HandleVendorRequest                                           ****** GX
     _IE                                                         =  0000A8 G
     _IE0                                                        =  000089 G
@@ -262,7 +262,7 @@ Symbol Table
     _IP                                                         =  0000B8 G
     _IT0                                                        =  000088 G
     _IT1                                                        =  00008A G
- 17 _InitUSB                                                       000236 GR
+ 17 _InitUSB                                                       00022A GR
     _NANDCSDIR                                                  =  00F618 G
     _NANDCSOUT                                                  =  00F608 G
     _OV                                                         =  0000D2 G
@@ -287,7 +287,7 @@ Symbol Table
     _RS0                                                        =  0000D3 G
     _RS1                                                        =  0000D4 G
     _RXD                                                        =  0000B0 G
- 17 _ResetEPs                                                      0004CF R
+ 17 _ResetEPs                                                      0004E1 R
     _SBUF                                                       =  000099 G
     _SCON                                                       =  000098 G
     _SETUPDAT                                                   =  00F0B8 G
@@ -295,17 +295,17 @@ Symbol Table
     _SM1                                                        =  00009E G
     _SM2                                                        =  00009D G
     _SP                                                         =  000081 G
- 17 _SendCSW                                                       00012C R
- 17 _SendCSW2                                                      000195 R
+ 17 _SendCSW                                                       000125 R
+ 17 _SendCSW2                                                      00018E R
  17 _SendControlResponse                                           00003C GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 6.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 17 _SendData0                                                     00006A GR
+ 17 _SendData0                                                     000067 GR
   5 _SendData0_PARM_2                                              000009 GR
- 17 _SendData1                                                     0000CB GR
+ 17 _SendData1                                                     0000C6 GR
   5 _SendData1_PARM_2                                              00000A GR
  17 _SetDMA                                                        000000 GR
   6 _SetDMA_PARM_2                                                 000000 GR
@@ -336,7 +336,7 @@ Symbol Table
     _WR                                                         =  0000B6 G
   5 _bRequest                                                      000001 GR
   5 _bmRequestType                                                 000000 GR
- 17 _ep_isr                                                        000475 GR
+ 17 _ep_isr                                                        000479 GR
     _scsi_cdb                                                      ****** GX
     _scsi_cdb_size                                                 ****** GX
     _scsi_data_residue                                             ****** GX
@@ -349,7 +349,7 @@ Symbol Table
     _usb_buffer                                                 =  000000 G
   B _usb_have_csw_ready                                            000006 GR
   B _usb_irq                                                       000000 R
- 17 _usb_isr                                                       000310 GR
+ 17 _usb_isr                                                       000312 GR
   B _usb_received_data_ready                                       000005 GR
   5 _usb_speed                                                     000008 GR
   5 _wIndex                                                        000004 GR
@@ -589,7 +589,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      0   flags   20
-  17 CSEG                                       size    73A   flags   20
+  17 CSEG                                       size    762   flags   20
   18 CONST                                      size      0   flags   20
   19 XINIT                                      size      0   flags   20
   1A CABS                                       size      0   flags   28

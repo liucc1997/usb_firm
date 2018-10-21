@@ -1,7 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 3.4.3 #9212 (Apr 15 2015) (MINGW32)
-; This file was generated Fri Apr 24 20:58:38 2015
+; Version 3.8.0 #10562 (MINGW64)
 ;--------------------------------------------------------
 	.module scsi
 	.optsdcc -mmcs51 --model-small
@@ -325,7 +324,7 @@ _PRAMCTL	=	0xfa48
 ;Allocation info for local variables in function 'HandleCDB'
 ;------------------------------------------------------------
 ;i                         Allocated to registers r6 r7 
-;i                         Allocated with name '_HandleCDB_i_5_43'
+;i                         Allocated with name '_HandleCDB_i_327680_44'
 ;------------------------------------------------------------
 ;	scsi.c:29: BYTE HandleCDB()
 ;	-----------------------------------------
@@ -344,33 +343,33 @@ _HandleCDB:
 	mov	_scsi_status,#0x01
 ;	scsi.c:34: switch(scsi_cdb[0])
 	mov	r7,_scsi_cdb
-	cjne	r7,#0x00,00190$
+	cjne	r7,#0x00,00210$
 	sjmp	00102$
-00190$:
-	cjne	r7,#0x03,00191$
+00210$:
+	cjne	r7,#0x03,00211$
 	ljmp	00106$
-00191$:
-	cjne	r7,#0x06,00192$
+00211$:
+	cjne	r7,#0x06,00212$
 	ljmp	00109$
-00192$:
-	cjne	r7,#0x12,00193$
+00212$:
+	cjne	r7,#0x12,00213$
 	sjmp	00103$
-00193$:
-	cjne	r7,#0x1A,00194$
+00213$:
+	cjne	r7,#0x1a,00214$
 	ljmp	00105$
-00194$:
-	cjne	r7,#0x1E,00195$
+00214$:
+	cjne	r7,#0x1e,00215$
 	sjmp	00101$
-00195$:
-	cjne	r7,#0x23,00196$
+00215$:
+	cjne	r7,#0x23,00216$
 	sjmp	00104$
-00196$:
-	cjne	r7,#0xC6,00197$
+00216$:
+	cjne	r7,#0xc6,00217$
 	ljmp	00109$
-00197$:
-	cjne	r7,#0xC7,00198$
+00217$:
+	cjne	r7,#0xc7,00218$
 	ljmp	00109$
-00198$:
+00218$:
 	ljmp	00123$
 ;	scsi.c:36: case PREVENT_ALLOW_MEDIUM_REMOVAL:
 00101$:
@@ -403,7 +402,7 @@ _HandleCDB:
 	movx	@dptr,a
 ;	scsi.c:50: usb_buffer[4] = 0x1F; //additional length
 	mov	dptr,#(_usb_buffer + 0x0004)
-	mov	a,#0x1F
+	mov	a,#0x1f
 	movx	@dptr,a
 ;	scsi.c:51: SendData1(36, 0);
 	mov	_SendData1_PARM_2,#0x00
@@ -418,7 +417,7 @@ _HandleCDB:
 00104$:
 ;	scsi.c:57: memset(usb_buffer, 0, 12);
 	mov	_memset_PARM_2,#0x00
-	mov	_memset_PARM_3,#0x0C
+	mov	_memset_PARM_3,#0x0c
 	mov	(_memset_PARM_3 + 1),#0x00
 	mov	dptr,#_usb_buffer
 	mov	b,#0x00
@@ -441,7 +440,7 @@ _HandleCDB:
 	movx	@dptr,a
 ;	scsi.c:62: SendData1(12, 0);
 	mov	_SendData1_PARM_2,#0x00
-	mov	dptr,#0x000C
+	mov	dptr,#0x000c
 	lcall	_SendData1
 ;	scsi.c:63: scsi_status = 0;
 	mov	_scsi_status,#0x00
@@ -493,11 +492,11 @@ _HandleCDB:
 	movx	@dptr,a
 ;	scsi.c:80: usb_buffer[7] = 10;
 	mov	dptr,#(_usb_buffer + 0x0007)
-	mov	a,#0x0A
+	mov	a,#0x0a
 	movx	@dptr,a
 ;	scsi.c:81: usb_buffer[12] = 0x3A;
 	mov	dptr,#(_usb_buffer + 0x000c)
-	mov	a,#0x3A
+	mov	a,#0x3a
 	movx	@dptr,a
 ;	scsi.c:82: SendData1(18, 0);
 	mov	_SendData1_PARM_2,#0x00
@@ -512,27 +511,27 @@ _HandleCDB:
 00109$:
 ;	scsi.c:91: switch(scsi_cdb[1])
 	mov	r7,(_scsi_cdb + 0x0001)
-	cjne	r7,#0x05,00199$
+	cjne	r7,#0x05,00219$
 	ljmp	00119$
-00199$:
-	cjne	r7,#0x06,00200$
+00219$:
+	cjne	r7,#0x06,00220$
 	sjmp	00110$
-00200$:
-	cjne	r7,#0x07,00201$
+00220$:
+	cjne	r7,#0x07,00221$
 	sjmp	00111$
-00201$:
-	cjne	r7,#0x08,00202$
+00221$:
+	cjne	r7,#0x08,00222$
 	sjmp	00112$
-00202$:
-	cjne	r7,#0x09,00203$
+00222$:
+	cjne	r7,#0x09,00223$
 	sjmp	00113$
-00203$:
-	cjne	r7,#0x56,00204$
+00223$:
+	cjne	r7,#0x56,00224$
 	ljmp	00114$
-00204$:
-	cjne	r7,#0xBF,00205$
+00224$:
+	cjne	r7,#0xbf,00225$
 	ljmp	00120$
-00205$:
+00225$:
 	ljmp	00121$
 ;	scsi.c:93: case CUSTOM_XPEEK:
 00110$:
@@ -612,33 +611,32 @@ _HandleCDB:
 	mov	b,#0x00
 	lcall	_memset
 ;	scsi.c:123: XVAL(0xF480) = 0x00;
-	mov	dptr,#0xF480
+	mov	dptr,#0xf480
 	clr	a
 	movx	@dptr,a
 ;	scsi.c:124: XVAL(0xF618) = 0xFF;
-	mov	dptr,#0xF618
+	mov	dptr,#0xf618
 	dec	a
 	movx	@dptr,a
 ;	scsi.c:127: XVAL(0xF608) = 0xFE;
-	mov	dptr,#0xF608
+	mov	dptr,#0xf608
 	dec	a
 	movx	@dptr,a
 ;	scsi.c:130: XVAL(0xF400) = 0xFF;
-	mov	dptr,#0xF400
+	mov	dptr,#0xf400
 	inc	a
 	movx	@dptr,a
 ;	scsi.c:131: while (!(XVAL(0xF41E) & 0x01));
 00115$:
-	mov	dptr,#0xF41E
+	mov	dptr,#0xf41e
 	movx	a,@dptr
-	mov	r7,a
 	jnb	acc.0,00115$
 ;	scsi.c:134: XVAL(0xF400) = 0x90;
-	mov	dptr,#0xF400
+	mov	dptr,#0xf400
 	mov	a,#0x90
 	movx	@dptr,a
 ;	scsi.c:135: XVAL(0xF404) = 0x00;
-	mov	dptr,#0xF404
+	mov	dptr,#0xf404
 	clr	a
 	movx	@dptr,a
 ;	scsi.c:136: for (i = 0; i < 6; i++)
@@ -650,17 +648,16 @@ _HandleCDB:
 	mov	a,#(_usb_buffer >> 8)
 	add	a,r7
 	mov	r5,a
-	mov	dptr,#0xF408
+	mov	dptr,#0xf408
 	movx	a,@dptr
-	mov	r3,a
 	mov	dpl,r4
 	mov	dph,r5
 	movx	@dptr,a
 ;	scsi.c:136: for (i = 0; i < 6; i++)
 	inc	r6
-	cjne	r6,#0x00,00207$
+	cjne	r6,#0x00,00227$
 	inc	r7
-00207$:
+00227$:
 	clr	c
 	mov	a,r6
 	subb	a,#0x06
@@ -734,41 +731,45 @@ _HandleCDB:
 	ret
 00120$:
 ;	scsi.c:166: XVAL(0xFA14) = 0x07;
-	mov	dptr,#0xFA14
+	mov	dptr,#0xfa14
 	mov	a,#0x07
 	movx	@dptr,a
 ;	scsi.c:167: XVAL(0xF747) &= 0xEF;
-	mov	dptr,#0xF747
+	mov	dptr,#0xf747
 	movx	a,@dptr
-	anl	a,#0xEF
+	anl	a,#0xef
 	movx	@dptr,a
 ;	scsi.c:168: XVAL(0xFA15) = 0x06;
-	mov	dptr,#0xFA15
+	mov	dptr,#0xfa15
 	mov	a,#0x06
 	movx	@dptr,a
 ;	scsi.c:169: XVAL(0xFA38) |= 0x01;
-	mov	dptr,#0xFA38
+	mov	dptr,#0xfa38
 	movx	a,@dptr
-	orl	a,#0x01
+	mov	r7,a
+	mov	r6,#0x00
+	orl	ar7,#0x01
+	mov	dptr,#0xfa38
+	mov	a,r7
 	movx	@dptr,a
 ;	scsi.c:170: XVAL(0xF08F) = 0x00;
-	mov	dptr,#0xF08F
+	mov	dptr,#0xf08f
 	clr	a
 	movx	@dptr,a
 ;	scsi.c:171: XVAL(0xFA68) &= 0xF7;
-	mov	dptr,#0xFA68
+	mov	dptr,#0xfa68
 	movx	a,@dptr
-	anl	a,#0xF7
+	anl	a,#0xf7
 	movx	@dptr,a
 ;	scsi.c:172: XVAL(0xFA6A) &= 0xF7;
-	mov	dptr,#0xFA6A
+	mov	dptr,#0xfa6a
 	movx	a,@dptr
-	anl	a,#0xF7
+	anl	a,#0xf7
 	movx	@dptr,a
 ;	scsi.c:173: XVAL(0xFA48) &= 0xFE;
-	mov	dptr,#0xFA48
+	mov	dptr,#0xfa48
 	movx	a,@dptr
-	anl	a,#0xFE
+	anl	a,#0xfe
 	mov	r7,a
 	movx	@dptr,a
 ;	scsi.c:174: break;
@@ -783,6 +784,7 @@ _HandleCDB:
 ;	scsi.c:186: return 0;
 	mov	dpl,#0x00
 ;	scsi.c:188: }
+;	scsi.c:189: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

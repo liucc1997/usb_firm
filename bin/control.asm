@@ -1,7 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 3.4.3 #9212 (Apr 15 2015) (MINGW32)
-; This file was generated Fri Apr 24 20:58:37 2015
+; Version 3.8.0 #10562 (MINGW64)
 ;--------------------------------------------------------
 	.module control
 	.optsdcc -mmcs51 --model-small
@@ -319,6 +318,7 @@ _EP0ACK:
 	mov	dptr,#_EP0CS
 	mov	a,#0x01
 	movx	@dptr,a
+;	control.c:31: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SetAddress'
@@ -335,7 +335,7 @@ _SetAddress:
 ;	control.c:37: if (wValue < 0x7F)
 	clr	c
 	mov	a,_wValue
-	subb	a,#0x7F
+	subb	a,#0x7f
 	mov	a,(_wValue + 1)
 	subb	a,#0x00
 	jnc	00102$
@@ -346,6 +346,7 @@ _SetAddress:
 00102$:
 ;	control.c:43: return ret;
 	mov	dpl,r7
+;	control.c:44: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'GetDescriptor'
@@ -365,18 +366,18 @@ _GetDescriptor:
 ;	control.c:50: BYTE ret = FALSE;
 	mov	r6,#0x00
 ;	control.c:52: switch (type)
-	cjne	r7,#0x01,00182$
+	cjne	r7,#0x01,00198$
 	sjmp	00134$
-00182$:
-	cjne	r7,#0x02,00183$
+00198$:
+	cjne	r7,#0x02,00199$
 	sjmp	00103$
-00183$:
-	cjne	r7,#0x06,00184$
+00199$:
+	cjne	r7,#0x06,00200$
 	ljmp	00140$
-00184$:
-	cjne	r7,#0x22,00185$
+00200$:
+	cjne	r7,#0x22,00201$
 	ljmp	00143$
-00185$:
+00201$:
 	ljmp	00110$
 ;	control.c:56: for (i = 0; i < 0x12; i++)
 00134$:
@@ -386,13 +387,12 @@ _GetDescriptor:
 	mov	a,r7
 	mov	dptr,#_deviceDescriptor
 	movc	a,@a+dptr
-	mov	r5,a
 	mov	dptr,#(_EP0 + 0x001c)
 	movx	@dptr,a
 ;	control.c:56: for (i = 0; i < 0x12; i++)
 	inc	r7
-	cjne	r7,#0x12,00186$
-00186$:
+	cjne	r7,#0x12,00202$
+00202$:
 ;	control.c:61: SendControlResponse(wLength < 0x12 ? wLength : 0x12);
 	jc	00111$
 	mov	a,_wLength
@@ -465,17 +465,16 @@ _GetDescriptor:
 	mov	a,r7
 	mov	dptr,#_deviceQualifierDescriptor
 	movc	a,@a+dptr
-	mov	r5,a
 	mov	dptr,#(_EP0 + 0x001c)
 	movx	@dptr,a
 ;	control.c:81: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
 	inc	r7
-	cjne	r7,#0x0A,00191$
-00191$:
+	cjne	r7,#0x0a,00207$
+00207$:
 ;	control.c:86: SendControlResponse(wLength < sizeof(deviceQualifierDescriptor) ? wLength : sizeof(deviceQualifierDescriptor));
 	jc	00116$
 	mov	a,_wLength
-	subb	a,#0x0A
+	subb	a,#0x0a
 	mov	a,(_wLength + 1)
 	subb	a,#0x00
 	jnc	00126$
@@ -483,7 +482,7 @@ _GetDescriptor:
 	mov	r7,(_wLength + 1)
 	sjmp	00127$
 00126$:
-	mov	r5,#0x0A
+	mov	r5,#0x0a
 	mov	r7,#0x00
 00127$:
 	mov	dpl,r5
@@ -501,17 +500,16 @@ _GetDescriptor:
 	mov	a,r7
 	mov	dptr,#_HIDreportDescriptor
 	movc	a,@a+dptr
-	mov	r5,a
 	mov	dptr,#(_EP0 + 0x001c)
 	movx	@dptr,a
 ;	control.c:93: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
 	inc	r7
-	cjne	r7,#0x3F,00194$
-00194$:
+	cjne	r7,#0x3f,00210$
+00210$:
 ;	control.c:98: SendControlResponse(wLength < sizeof(HIDreportDescriptor) ? wLength : sizeof(HIDreportDescriptor));
 	jc	00118$
 	mov	a,_wLength
-	subb	a,#0x3F
+	subb	a,#0x3f
 	mov	a,(_wLength + 1)
 	subb	a,#0x00
 	jnc	00128$
@@ -519,7 +517,7 @@ _GetDescriptor:
 	mov	r7,(_wLength + 1)
 	sjmp	00129$
 00128$:
-	mov	r5,#0x3F
+	mov	r5,#0x3f
 	mov	r7,#0x00
 00129$:
 	mov	dpl,r5
@@ -531,6 +529,7 @@ _GetDescriptor:
 00110$:
 ;	control.c:109: return ret;
 	mov	dpl,r6
+;	control.c:110: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SetConfiguration'
@@ -558,6 +557,7 @@ _SetConfiguration:
 00102$:
 ;	control.c:122: return ret;
 	mov	dpl,r7
+;	control.c:123: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleStandardRequest'
@@ -569,13 +569,13 @@ _SetConfiguration:
 _HandleStandardRequest:
 ;	control.c:127: switch(bRequest)
 	mov	a,#0x05
-	cjne	a,_bRequest,00117$
+	cjne	a,_bRequest,00120$
 	sjmp	00101$
-00117$:
+00120$:
 	mov	a,#0x06
-	cjne	a,_bRequest,00118$
+	cjne	a,_bRequest,00121$
 	sjmp	00102$
-00118$:
+00121$:
 	mov	a,#0x09
 ;	control.c:129: case 0x05:
 	cjne	a,_bRequest,00104$
@@ -596,6 +596,7 @@ _HandleStandardRequest:
 ;	control.c:143: return FALSE;
 	mov	dpl,#0x00
 ;	control.c:145: }
+;	control.c:146: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'GetMaxLUN'
@@ -628,6 +629,7 @@ _GetMaxLUN:
 	lcall	_SendControlResponse
 ;	control.c:153: return TRUE;
 	mov	dpl,#0x01
+;	control.c:154: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleClassRequest'
@@ -639,14 +641,14 @@ _GetMaxLUN:
 _HandleClassRequest:
 ;	control.c:158: switch(bRequest)
 	mov	a,#0x09
-	cjne	a,_bRequest,00117$
+	cjne	a,_bRequest,00120$
 	sjmp	00101$
-00117$:
-	mov	a,#0x0A
-	cjne	a,_bRequest,00118$
+00120$:
+	mov	a,#0x0a
+	cjne	a,_bRequest,00121$
 	sjmp	00102$
-00118$:
-	mov	a,#0xFE
+00121$:
+	mov	a,#0xfe
 ;	control.c:160: case 0x09:
 	cjne	a,_bRequest,00104$
 	sjmp	00103$
@@ -674,6 +676,7 @@ _HandleClassRequest:
 ;	control.c:176: return FALSE;
 	mov	dpl,#0x00
 ;	control.c:178: }
+;	control.c:179: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleVendorRequest'
@@ -685,6 +688,7 @@ _HandleClassRequest:
 _HandleVendorRequest:
 ;	control.c:183: return FALSE;
 	mov	dpl,#0x00
+;	control.c:184: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -697,12 +701,12 @@ _deviceDescriptor:
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x40	; 64
-	.db #0xFE	; 254
-	.db #0x13	; 19
-	.db #0x01	; 1
-	.db #0x52	; 82	'R'
+	.db #0xb4	; 180
+	.db #0x04	; 4
+	.db #0x05	; 5
 	.db #0x10	; 16
-	.db #0x01	; 1
+	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
@@ -716,7 +720,7 @@ _configDescriptor:
 	.db #0x01	; 1
 	.db #0x00	; 0
 	.db #0x80	; 128
-	.db #0x4B	; 75	'K'
+	.db #0x4b	; 75	'K'
 	.db #0x09	; 9
 	.db #0x04	; 4
 	.db #0x00	; 0
@@ -763,7 +767,7 @@ _configDescriptor:
 	.db #0x00	; 0
 	.db #0x01	; 1
 	.db #0x22	; 34
-	.db #0x3F	; 63
+	.db #0x3f	; 63
 	.db #0x00	; 0
 	.db #0x07	; 7
 	.db #0x05	; 5
@@ -784,14 +788,14 @@ _HIDreportDescriptor:
 	.db #0x01	; 1
 	.db #0x09	; 9
 	.db #0x06	; 6
-	.db #0xA1	; 161
+	.db #0xa1	; 161
 	.db #0x01	; 1
 	.db #0x05	; 5
 	.db #0x07	; 7
 	.db #0x19	; 25
-	.db #0xE0	; 224
+	.db #0xe0	; 224
 	.db #0x29	; 41
-	.db #0xE7	; 231
+	.db #0xe7	; 231
 	.db #0x15	; 21
 	.db #0x00	; 0
 	.db #0x25	; 37
@@ -842,9 +846,9 @@ _HIDreportDescriptor:
 	.db #0x65	; 101	'e'
 	.db #0x81	; 129
 	.db #0x00	; 0
-	.db #0xC0	; 192
+	.db #0xc0	; 192
 _deviceQualifierDescriptor:
-	.db #0x0A	; 10
+	.db #0x0a	; 10
 	.db #0x06	; 6
 	.db #0x00	; 0
 	.db #0x02	; 2
