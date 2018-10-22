@@ -1,7 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 3.4.3 #9212 (Apr 15 2015) (MINGW32)
-; This file was generated Fri Apr 24 20:58:37 2015
+; Version 3.8.0 #10562 (MINGW64)
 ;--------------------------------------------------------
 	.module usb
 	.optsdcc -mmcs51 --model-small
@@ -378,34 +377,34 @@ _SetDMA:
 	ar0 = 0x00
 	mov	r7,dpl
 ;	usb.c:36: XVAL(0xF80B) = 0;
-	mov	dptr,#0xF80B
+	mov	dptr,#0xf80b
 	clr	a
 	movx	@dptr,a
 ;	usb.c:37: XVAL(0xF80C) = p5-1;
 	dec	r7
-	mov	dptr,#0xF80C
+	mov	dptr,#0xf80c
 	mov	a,r7
 	movx	@dptr,a
 ;	usb.c:39: switch(px)
 	clr	a
-	cjne	a,_SetDMA_PARM_3,00117$
+	cjne	a,_SetDMA_PARM_3,00120$
 	sjmp	00101$
-00117$:
+00120$:
 	mov	a,#0x01
-	cjne	a,_SetDMA_PARM_3,00118$
+	cjne	a,_SetDMA_PARM_3,00121$
 	sjmp	00102$
-00118$:
+00121$:
 	mov	a,#0x02
 ;	usb.c:41: case 0:
 	cjne	a,_SetDMA_PARM_3,00106$
 	sjmp	00103$
 00101$:
 ;	usb.c:43: XVAL(0xF80D) = p3;
-	mov	dptr,#0xF80D
+	mov	dptr,#0xf80d
 	mov	a,_SetDMA_PARM_2
 	movx	@dptr,a
 ;	usb.c:44: XVAL(0xF80E) = p3;
-	mov	dptr,#0xF80E
+	mov	dptr,#0xf80e
 	mov	a,_SetDMA_PARM_2
 	movx	@dptr,a
 ;	usb.c:45: break;
@@ -413,7 +412,7 @@ _SetDMA:
 	ret
 00102$:
 ;	usb.c:49: XVAL(0xF80D) = p3;
-	mov	dptr,#0xF80D
+	mov	dptr,#0xf80d
 	mov	a,_SetDMA_PARM_2
 	movx	@dptr,a
 ;	usb.c:50: break;
@@ -421,11 +420,12 @@ _SetDMA:
 	ret
 00103$:
 ;	usb.c:54: XVAL(0xF80E) = p3;
-	mov	dptr,#0xF80E
+	mov	dptr,#0xf80e
 	mov	a,_SetDMA_PARM_2
 	movx	@dptr,a
 ;	usb.c:61: }
 00106$:
+;	usb.c:62: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SendControlResponse'
@@ -440,10 +440,9 @@ _SendControlResponse:
 	mov	r6,dpl
 	mov	r7,dph
 ;	usb.c:66: EP0.len_l = LSB(size);
-	mov	ar4,r6
-	mov	r5,#0x00
+	mov	ar5,r6
 	mov	dptr,#(_EP0 + 0x000c)
-	mov	a,r4
+	mov	a,r5
 	movx	@dptr,a
 ;	usb.c:67: EP0.len_m = MSB(size);
 	mov	ar6,r7
@@ -462,12 +461,12 @@ _SendControlResponse:
 00101$:
 	mov	dptr,#(_EP0 + 0x0013)
 	movx	a,@dptr
-	mov	r7,a
 	jb	acc.6,00101$
 ;	usb.c:71: EP0CS = 0x05;
 	mov	dptr,#_EP0CS
 	mov	a,#0x05
 	movx	@dptr,a
+;	usb.c:72: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SendData0'
@@ -516,10 +515,9 @@ _SendData0:
 	mov	a,_SendData0_PARM_2
 	movx	@dptr,a
 ;	usb.c:84: EP0.len_l = LSB(size);
-	mov	ar4,r6
-	mov	r5,#0x00
+	mov	ar5,r6
 	mov	dptr,#(_EP0 + 0x000c)
-	mov	a,r4
+	mov	a,r5
 	movx	@dptr,a
 ;	usb.c:85: EP0.len_m = MSB(size);
 	mov	ar6,r7
@@ -541,6 +539,7 @@ _SendData0:
 	mov	r7,a
 	jb	acc.7,00101$
 00106$:
+;	usb.c:91: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SendData1'
@@ -589,10 +588,9 @@ _SendData1:
 	mov	a,_SendData1_PARM_2
 	movx	@dptr,a
 ;	usb.c:103: EP1.len_l = LSB(size);
-	mov	ar4,r6
-	mov	r5,#0x00
+	mov	ar5,r6
 	mov	dptr,#(_EP1 + 0x000c)
-	mov	a,r4
+	mov	a,r5
 	movx	@dptr,a
 ;	usb.c:104: EP1.len_m = MSB(size);
 	mov	ar6,r7
@@ -614,6 +612,7 @@ _SendData1:
 	mov	r7,a
 	jb	acc.7,00101$
 00106$:
+;	usb.c:110: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SendCSW'
@@ -681,7 +680,7 @@ _SendCSW:
 	movx	@dptr,a
 ;	usb.c:128: SendData1(13, 0);
 	mov	_SendData1_PARM_2,#0x00
-	mov	dptr,#0x000D
+	mov	dptr,#0x000d
 	lcall	_SendData1
 ;	usb.c:129: usb_have_csw_ready = 0;
 	mov	dptr,#_usb_have_csw_ready
@@ -692,6 +691,7 @@ _SendCSW:
 	mov	(_scsi_data_residue + 1),a
 	mov	(_scsi_data_residue + 2),a
 	mov	(_scsi_data_residue + 3),a
+;	usb.c:131: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SendCSW2'
@@ -708,18 +708,15 @@ _SendCSW2:
 	mov	r7,a
 	jb	acc.1,00101$
 ;	usb.c:136: while((EP1.r17 & 0x80)==0)
-	mov	dptr,#0xF010
-	movx	a,@dptr
-	mov	r7,a
-	anl	ar7,#0x20
 00106$:
 	mov	dptr,#(_EP1 + 0x0017)
 	movx	a,@dptr
-	mov	r6,a
+	mov	r7,a
 	jb	acc.7,00109$
 ;	usb.c:138: if ((XVAL(0xF010) & 0x20)==0)
-	mov	a,r7
-	jnz	00106$
+	mov	dptr,#0xf010
+	movx	a,@dptr
+	jb	acc.5,00106$
 ;	usb.c:140: usb_have_csw_ready = 0;
 	mov	dptr,#_usb_have_csw_ready
 	clr	a
@@ -748,7 +745,6 @@ _SendCSW2:
 00118$:
 	mov	dptr,#(_EP4 + 0x0013)
 	movx	a,@dptr
-	mov	r7,a
 	jb	acc.6,00118$
 ;	usb.c:150: EP1.fifo = 'U';
 ;	usb.c:151: EP1.fifo = 'S';
@@ -801,7 +797,7 @@ _SendCSW2:
 	movx	@dptr,a
 ;	usb.c:163: EP1.len_l = 13;
 	mov	dptr,#(_EP1 + 0x000c)
-	mov	a,#0x0D
+	mov	a,#0x0d
 	movx	@dptr,a
 ;	usb.c:164: EP1.len_m = 0;
 	mov	dptr,#(_EP1 + 0x000d)
@@ -823,6 +819,7 @@ _SendCSW2:
 	mov	(_scsi_data_residue + 1),a
 	mov	(_scsi_data_residue + 2),a
 	mov	(_scsi_data_residue + 3),a
+;	usb.c:169: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'InitUSB'
@@ -888,14 +885,15 @@ _InitUSB:
 ;	usb.c:190: if (WARMSTATUS & 2) //USB warm start
 	mov	dptr,#_WARMSTATUS
 	movx	a,@dptr
-	mov	r7,a
 	jnb	acc.1,00112$
 ;	usb.c:192: if ((USBSTAT & bmSpeed) == bmSuperSpeed)
 	mov	dptr,#_USBSTAT
 	movx	a,@dptr
 	mov	r7,a
 	anl	ar7,#0x07
+	mov	r6,#0x00
 	cjne	r7,#0x04,00108$
+	cjne	r6,#0x00,00108$
 ;	usb.c:194: usb_speed = bmSuperSpeed;
 	mov	_usb_speed,#0x04
 	sjmp	00109$
@@ -903,11 +901,10 @@ _InitUSB:
 ;	usb.c:196: else if ((USBSTAT & bmSpeed) == bmHighSpeed)
 	mov	dptr,#_USBSTAT
 	movx	a,@dptr
-	mov	r7,a
 	anl	a,#0x07
-	jz	00139$
+	jz	00144$
 	sjmp	00105$
-00139$:
+00144$:
 ;	usb.c:198: usb_speed = bmHighSpeed;
 	mov	_usb_speed,#0x00
 	sjmp	00109$
@@ -917,7 +914,9 @@ _InitUSB:
 	movx	a,@dptr
 	mov	r7,a
 	anl	ar7,#0x07
+	mov	r6,#0x00
 	cjne	r7,#0x01,00102$
+	cjne	r6,#0x00,00102$
 ;	usb.c:202: usb_speed = bmFullSpeed;
 	mov	_usb_speed,#0x01
 	sjmp	00109$
@@ -926,12 +925,14 @@ _InitUSB:
 	mov	_usb_speed,#0x00
 00109$:
 ;	usb.c:209: EX1 = 1;
+;	assignBit
 	setb	_EX1
 ;	usb.c:210: EX0 = 1;
+;	assignBit
 	setb	_EX0
 ;	usb.c:211: EPIE = bmEP2IRQ | bmEP4IRQ;
 	mov	dptr,#_EPIE
-	mov	a,#0x0A
+	mov	a,#0x0a
 	movx	@dptr,a
 ;	usb.c:212: scsi_data_residue = 0;
 	clr	a
@@ -950,19 +951,19 @@ _InitUSB:
 	mov	a,#0x06
 	movx	@dptr,a
 ;	usb.c:220: XVAL(0xF240) = 2;
-	mov	dptr,#0xF240
+	mov	dptr,#0xf240
 	mov	a,#0x02
 	movx	@dptr,a
 ;	usb.c:221: XVAL(0xF28C) = 0x36;
-	mov	dptr,#0xF28C
+	mov	dptr,#0xf28c
 	mov	a,#0x36
 	movx	@dptr,a
 ;	usb.c:222: XVAL(0xF28D) = 0xD0;
-	mov	dptr,#0xF28D
-	mov	a,#0xD0
+	mov	dptr,#0xf28d
+	mov	a,#0xd0
 	movx	@dptr,a
 ;	usb.c:223: XVAL(0xF28E) = 0x98;
-	mov	dptr,#0xF28E
+	mov	dptr,#0xf28e
 	mov	a,#0x98
 	movx	@dptr,a
 ;	usb.c:224: REGBANK = 0;
@@ -971,29 +972,35 @@ _InitUSB:
 	movx	@dptr,a
 ;	usb.c:225: EPIE = bmEP2IRQ | bmEP4IRQ;
 	mov	dptr,#_EPIE
-	mov	a,#0x0A
+	mov	a,#0x0a
 	movx	@dptr,a
 ;	usb.c:226: USBCTL = bmAttach | bmSuperSpeed;
 	mov	dptr,#_USBCTL
 	mov	a,#0x84
 	movx	@dptr,a
 ;	usb.c:228: XVAL(0xFA38) |= 2;
-	mov	dptr,#0xFA38
+	mov	dptr,#0xfa38
 	movx	a,@dptr
-	orl	a,#0x02
+	mov	r7,a
+	mov	r6,#0x00
+	orl	ar7,#0x02
+	mov	dptr,#0xfa38
+	mov	a,r7
 	movx	@dptr,a
 ;	usb.c:230: EX1 = 1;
+;	assignBit
 	setb	_EX1
 ;	usb.c:231: EX0 = 1;
+;	assignBit
 	setb	_EX0
 ;	usb.c:232: for (b = 0; b < 250; b++);			
-	mov	r7,#0xFA
+	mov	r7,#0xfa
 00116$:
-	mov	ar6,r7
-	dec	r6
-	mov	a,r6
+	mov	a,r7
+	dec	a
 	mov	r7,a
 	jnz	00116$
+;	usb.c:234: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'usb_isr'
@@ -1010,10 +1017,6 @@ _usb_isr:
 	push	ar6
 	push	ar5
 	push	ar4
-	push	ar3
-	push	ar2
-	push	ar1
-	push	ar0
 	push	psw
 	mov	psw,#0x00
 ;	usb.c:238: usb_irq = USBIRQ;
@@ -1050,7 +1053,9 @@ _usb_isr:
 	movx	a,@dptr
 	mov	r6,a
 	anl	ar6,#0x07
+	mov	r5,#0x00
 	cjne	r6,#0x04,00112$
+	cjne	r5,#0x00,00112$
 ;	usb.c:255: usb_speed = bmSuperSpeed;
 	mov	_usb_speed,#0x04
 	sjmp	00115$
@@ -1058,7 +1063,6 @@ _usb_isr:
 ;	usb.c:257: else if ((USBSTAT & bmSpeed) == bmHighSpeed)
 	mov	dptr,#_USBSTAT
 	movx	a,@dptr
-	mov	r6,a
 	anl	a,#0x07
 ;	usb.c:259: usb_speed = bmHighSpeed;
 	jnz	00109$
@@ -1070,7 +1074,9 @@ _usb_isr:
 	movx	a,@dptr
 	mov	r6,a
 	anl	ar6,#0x07
+	mov	r5,#0x00
 	cjne	r6,#0x01,00106$
+	cjne	r5,#0x00,00106$
 ;	usb.c:263: usb_speed = bmFullSpeed;
 	mov	_usb_speed,#0x01
 	sjmp	00115$
@@ -1087,59 +1093,56 @@ _usb_isr:
 	movx	@dptr,a
 00117$:
 ;	usb.c:276: UsbIntStsF087 = XVAL(0xF087);
-	mov	dptr,#0xF087
+	mov	dptr,#0xf087
 	movx	a,@dptr
-	mov	r6,a
 	mov	dptr,#_UsbIntStsF087
 	movx	@dptr,a
 ;	usb.c:277: UsbIntStsF086 = XVAL(0xF086);
-	mov	dptr,#0xF086
+	mov	dptr,#0xf086
 	movx	a,@dptr
-	mov	r5,a
 	mov	dptr,#_UsbIntStsF086
 	movx	@dptr,a
 ;	usb.c:278: UsbIntStsF082 = XVAL(0xF082);
-	mov	dptr,#0xF082
+	mov	dptr,#0xf082
 	movx	a,@dptr
-	mov	r4,a
+	mov	r7,a
 	mov	dptr,#_UsbIntStsF082
 	movx	@dptr,a
 ;	usb.c:279: UsbIntStsF080 = XVAL(0xF080);
-	mov	dptr,#0xF080
+	mov	dptr,#0xf080
 	movx	a,@dptr
-	mov	r3,a
 	mov	dptr,#_UsbIntStsF080
 	movx	@dptr,a
 ;	usb.c:281: if (UsbIntStsF082 & 0x80)
-	mov	a,r4
+	mov	a,r7
 	jnb	acc.7,00119$
 ;	usb.c:283: XVAL(0xF082) = 0x80;
-	mov	dptr,#0xF082
+	mov	dptr,#0xf082
 	mov	a,#0x80
 	movx	@dptr,a
 00119$:
 ;	usb.c:286: if (UsbIntStsF082 & 0x40)
-	mov	a,r4
+	mov	dptr,#_UsbIntStsF082
+	movx	a,@dptr
 	jnb	acc.6,00121$
 ;	usb.c:288: XVAL(0xF082) = 0x40;
-	mov	dptr,#0xF082
+	mov	dptr,#0xf082
 	mov	a,#0x40
 	movx	@dptr,a
 00121$:
 ;	usb.c:291: if (UsbIntStsF080 & 1)
-	mov	a,r3
+	mov	dptr,#_UsbIntStsF080
+	movx	a,@dptr
 	jnb	acc.0,00125$
 ;	usb.c:293: XVAL(0xF080) = 1;
-	mov	dptr,#0xF080
+	mov	dptr,#0xf080
 	mov	a,#0x01
 	movx	@dptr,a
 ;	usb.c:294: if (EP0CS & bmSUDAV)
 	mov	dptr,#_EP0CS
 	movx	a,@dptr
-	mov	r2,a
 	jnb	acc.7,00125$
 ;	usb.c:296: bmRequestType = SETUPDAT[0];
-	push	ar5
 	mov	dptr,#_SETUPDAT
 	movx	a,@dptr
 	mov	_bmRequestType,a
@@ -1150,98 +1153,97 @@ _usb_isr:
 ;	usb.c:298: wValue = SETUPDAT[2] | (SETUPDAT[3] << 8);
 	mov	dptr,#(_SETUPDAT + 0x0002)
 	movx	a,@dptr
-	mov	r2,a
+	mov	r7,a
 	mov	dptr,#(_SETUPDAT + 0x0003)
 	movx	a,@dptr
-	mov	r1,a
-	clr	a
 	mov	r5,a
-	orl	a,r2
+	clr	a
+	mov	r4,a
+	orl	a,r7
 	mov	_wValue,a
-	mov	a,r1
-	orl	a,r5
+	mov	a,r5
+	orl	a,r4
 	mov	(_wValue + 1),a
 ;	usb.c:299: wIndex = SETUPDAT[4] | (SETUPDAT[5] << 8);
 	mov	dptr,#(_SETUPDAT + 0x0004)
 	movx	a,@dptr
-	mov	r5,a
+	mov	r7,a
 	mov	dptr,#(_SETUPDAT + 0x0005)
 	movx	a,@dptr
-	mov	r2,a
-	mov	r1,#0x00
-	mov	ar0,r5
-	mov	r5,#0x00
-	mov	a,r1
-	orl	a,r0
+	mov	r5,a
+	clr	a
+	mov	r4,a
+	orl	a,r7
 	mov	_wIndex,a
-	mov	a,r2
-	orl	a,r5
+	mov	a,r5
+	orl	a,r4
 	mov	(_wIndex + 1),a
 ;	usb.c:300: wLength = SETUPDAT[6] | (SETUPDAT[7] << 8);
 	mov	dptr,#(_SETUPDAT + 0x0006)
 	movx	a,@dptr
-	mov	r5,a
+	mov	r7,a
 	mov	dptr,#(_SETUPDAT + 0x0007)
 	movx	a,@dptr
-	mov	r2,a
-	mov	r1,#0x00
-	mov	ar0,r5
-	mov	r5,#0x00
-	mov	a,r1
-	orl	a,r0
+	mov	r5,a
+	clr	a
+	mov	r6,a
+	mov	r4,a
+	orl	a,r7
 	mov	_wLength,a
-	mov	a,r2
-	orl	a,r5
+	mov	a,r5
+	orl	a,r4
 	mov	(_wLength + 1),a
-;	usb.c:321: EX0 = 0;
-	pop	ar5
-;	usb.c:300: wLength = SETUPDAT[6] | (SETUPDAT[7] << 8);
 00125$:
 ;	usb.c:304: if (XVAL(0xF082) & 0x20)
-	mov	dptr,#0xF082
+	mov	dptr,#0xf082
 	movx	a,@dptr
-	mov	r2,a
 	jnb	acc.5,00127$
 ;	usb.c:306: XVAL(0xF082) = 0x20;
-	mov	dptr,#0xF082
+	mov	dptr,#0xf082
 	mov	a,#0x20
 	movx	@dptr,a
 00127$:
 ;	usb.c:309: if (XVAL(0xF081) & 0x10)
-	mov	dptr,#0xF081
+	mov	dptr,#0xf081
 	movx	a,@dptr
-	mov	r2,a
 	jnb	acc.4,00129$
 ;	usb.c:311: XVAL(0xF081) = 0x10;
-	mov	dptr,#0xF081
+	mov	dptr,#0xf081
 	mov	a,#0x10
 	movx	@dptr,a
 00129$:
 ;	usb.c:314: if (XVAL(0xF081) & 0x20)
-	mov	dptr,#0xF081
+	mov	dptr,#0xf081
 	movx	a,@dptr
-	mov	r2,a
 	jnb	acc.5,00131$
 ;	usb.c:316: XVAL(0xF081) = 0x20;
-	mov	dptr,#0xF081
+	mov	dptr,#0xf081
 	mov	a,#0x20
 	movx	@dptr,a
 00131$:
 ;	usb.c:319: if (UsbIntStsF080 | UsbIntStsF082 | UsbIntStsF086 | UsbIntStsF087 | usb_irq)
-	mov	a,r4
-	orl	a,r3
-	orl	a,r5
-	orl	a,r6
+	mov	dptr,#_UsbIntStsF082
+	movx	a,@dptr
+	mov	r7,a
+	mov	dptr,#_UsbIntStsF080
+	movx	a,@dptr
+	orl	ar7,a
+	mov	dptr,#_UsbIntStsF086
+	movx	a,@dptr
+	orl	ar7,a
+	mov	dptr,#_UsbIntStsF087
+	movx	a,@dptr
+	orl	ar7,a
+	mov	dptr,#_usb_irq
+	movx	a,@dptr
 	orl	a,r7
 	jz	00134$
 ;	usb.c:321: EX0 = 0;
+;	assignBit
 	clr	_EX0
 00134$:
+;	usb.c:323: }
 	pop	psw
-	pop	ar0
-	pop	ar1
-	pop	ar2
-	pop	ar3
 	pop	ar4
 	pop	ar5
 	pop	ar6
@@ -1266,21 +1268,20 @@ _ep_isr:
 	push	dph
 	push	ar7
 	push	ar6
+	push	ar5
 	push	psw
 	mov	psw,#0x00
 ;	usb.c:327: BYTE interrupts = (EPIRQ & (bmEP2IRQ | bmEP4IRQ));
 	mov	dptr,#_EPIRQ
 	movx	a,@dptr
+	anl	a,#0x0a
 ;	usb.c:328: if (interrupts & bmEP2IRQ)
-	anl	a,#0x0A
 	mov	r7,a
 	jnb	acc.1,00102$
 ;	usb.c:330: EPIE &= ~bmEP2IRQ; //disable this 
 	mov	dptr,#_EPIE
 	movx	a,@dptr
-	mov	r6,a
-	mov	a,#0xFD
-	anl	a,r6
+	anl	acc,#0xfd
 	movx	@dptr,a
 ;	usb.c:331: EPIRQ = bmEP2IRQ; //acknowledge it
 	mov	dptr,#_EPIRQ
@@ -1290,8 +1291,10 @@ _ep_isr:
 	mov	dptr,#_usb_received_data_ready
 	movx	a,@dptr
 	mov	r6,a
-	mov	a,#0x02
-	orl	a,r6
+	mov	r5,#0x00
+	orl	ar6,#0x02
+	mov	dptr,#_usb_received_data_ready
+	mov	a,r6
 	movx	@dptr,a
 00102$:
 ;	usb.c:335: if (interrupts & bmEP4IRQ)
@@ -1300,9 +1303,7 @@ _ep_isr:
 ;	usb.c:337: EPIE &= ~bmEP4IRQ; //disable this 
 	mov	dptr,#_EPIE
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,#0xF7
-	anl	a,r7
+	anl	acc,#0xf7
 	movx	@dptr,a
 ;	usb.c:338: EPIRQ = bmEP4IRQ; //acknowledge it
 	mov	dptr,#_EPIRQ
@@ -1312,11 +1313,15 @@ _ep_isr:
 	mov	dptr,#_usb_received_data_ready
 	movx	a,@dptr
 	mov	r7,a
-	mov	a,#0x08
-	orl	a,r7
+	mov	r6,#0x00
+	orl	ar7,#0x08
+	mov	dptr,#_usb_received_data_ready
+	mov	a,r7
 	movx	@dptr,a
 00105$:
+;	usb.c:341: }
 	pop	psw
+	pop	ar5
 	pop	ar6
 	pop	ar7
 	pop	dph
@@ -1334,7 +1339,7 @@ _ep_isr:
 _ResetEPs:
 ;	usb.c:345: EPIE = bmEP2IRQ | bmEP4IRQ;
 	mov	dptr,#_EPIE
-	mov	a,#0x0A
+	mov	a,#0x0a
 	movx	@dptr,a
 ;	usb.c:346: EP1.cs = 0;
 	mov	dptr,#(_EP1 + 0x0013)
@@ -1349,6 +1354,7 @@ _ResetEPs:
 ;	usb.c:349: EP4.cs = 0;
 	mov	dptr,#(_EP4 + 0x0013)
 	movx	@dptr,a
+;	usb.c:350: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleControlRequest'
@@ -1361,15 +1367,20 @@ _ResetEPs:
 ;	-----------------------------------------
 _HandleControlRequest:
 ;	usb.c:355: switch(bmRequestType & 0x60)
-	mov	a,#0x60
-	anl	a,_bmRequestType
-	mov	r7,a
-	jz	00101$
-	cjne	r7,#0x20,00128$
+	mov	r6,_bmRequestType
+	anl	ar6,#0x60
+	mov	r7,#0x00
+	cjne	r6,#0x00,00132$
+	cjne	r7,#0x00,00132$
+	sjmp	00101$
+00132$:
+	cjne	r6,#0x20,00133$
+	cjne	r7,#0x00,00133$
 	sjmp	00102$
-00128$:
+00133$:
 ;	usb.c:357: case 0:
-	cjne	r7,#0x40,00104$
+	cjne	r6,#0x40,00104$
+	cjne	r7,#0x00,00104$
 	sjmp	00103$
 00101$:
 ;	usb.c:358: res = HandleStandardRequest();
@@ -1404,15 +1415,18 @@ _HandleControlRequest:
 	mov	a,_wLength
 	orl	a,(_wLength + 1)
 	jz	00110$
-	mov	r7,#0x08
+	mov	r6,#0x08
+	mov	r7,#0x00
 	sjmp	00111$
 00110$:
-	mov	r7,#0x02
+	mov	r6,#0x02
+	mov	r7,#0x00
 00111$:
 	mov	dptr,#_EP0CS
-	mov	a,r7
+	mov	a,r6
 	movx	@dptr,a
 00108$:
+;	usb.c:374: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleUSBEvents'
@@ -1456,23 +1470,21 @@ _HandleUSBEvents:
 ;	usb.c:384: USBCTL &= ~bmAttach;
 	mov	dptr,#_USBCTL
 	movx	a,@dptr
-	mov	r5,a
-	mov	a,#0x7F
-	anl	a,r5
+	anl	acc,#0x7f
 	movx	@dptr,a
 ;	usb.c:385: ResetEPs();
 	lcall	_ResetEPs
 ;	usb.c:386: XVAL(0xFE88) = 0;
-	mov	dptr,#0xFE88
+	mov	dptr,#0xfe88
 	clr	a
 	movx	@dptr,a
 ;	usb.c:387: XVAL(0xFE82) = 0x10;
-	mov	dptr,#0xFE82
+	mov	dptr,#0xfe82
 	mov	a,#0x10
 	movx	@dptr,a
 ;	usb.c:388: while(XVAL(0xFE88)!=2);
 00101$:
-	mov	dptr,#0xFE88
+	mov	dptr,#0xfe88
 	movx	a,@dptr
 	mov	r5,a
 	cjne	r5,#0x02,00101$
@@ -1484,7 +1496,6 @@ _HandleUSBEvents:
 ;	usb.c:392: if (usb_irq & bmSpeedChange)
 	mov	dptr,#_usb_irq
 	movx	a,@dptr
-	mov	r5,a
 	jnb	acc.7,00107$
 ;	usb.c:394: ResetEPs();
 	lcall	_ResetEPs
@@ -1497,24 +1508,23 @@ _HandleUSBEvents:
 00116$:
 ;	usb.c:401: if (UsbIntStsF082 & 0xC0)
 	mov	a,r7
-	anl	a,#0xC0
+	anl	a,#0xc0
 	jz	00113$
 ;	usb.c:403: ResetEPs();
 	lcall	_ResetEPs
 ;	usb.c:404: XVAL(0xF092) = 0;
-	mov	dptr,#0xF092
+	mov	dptr,#0xf092
 	clr	a
 	movx	@dptr,a
 ;	usb.c:405: XVAL(0xF096) = 0;
-	mov	dptr,#0xF096
+	mov	dptr,#0xf096
 	movx	@dptr,a
 ;	usb.c:406: if (UsbIntStsF082 & 0x40)
 	mov	dptr,#_UsbIntStsF082
 	movx	a,@dptr
-	mov	r7,a
 	jnb	acc.6,00114$
 ;	usb.c:408: XVAL(0xF07A) = 1;
-	mov	dptr,#0xF07A
+	mov	dptr,#0xf07a
 	mov	a,#0x01
 	movx	@dptr,a
 	sjmp	00114$
@@ -1540,6 +1550,7 @@ _HandleUSBEvents:
 	movx	@dptr,a
 00117$:
 ;	usb.c:425: EX0 = 1;	
+;	assignBit
 	setb	_EX0
 ;	usb.c:429: if (1)//usb_received_data_ready)
 00144$:
@@ -1556,34 +1567,33 @@ _HandleUSBEvents:
 ;	usb.c:438: usb_received_data_ready &= ~bmEP4IRQ;
 	mov	dptr,#_usb_received_data_ready
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,#0xF7
-	anl	a,r7
+	anl	acc,#0xf7
 	movx	@dptr,a
 ;	usb.c:439: EPIE |= bmEP4IRQ;
 	mov	dptr,#_EPIE
 	movx	a,@dptr
 	mov	r7,a
-	mov	a,#0x08
-	orl	a,r7
+	mov	r6,#0x00
+	orl	ar7,#0x08
+	mov	dptr,#_EPIE
+	mov	a,r7
 	movx	@dptr,a
 00123$:
 ;	usb.c:443: if (usb_received_data_ready & bmEP2IRQ)
 	mov	dptr,#_usb_received_data_ready
 	movx	a,@dptr
-	mov	r7,a
-	jb	acc.1,00229$
+	jb	acc.1,00251$
 	ljmp	00145$
-00229$:
+00251$:
 ;	usb.c:445: if (EP2.fifo_count == 31) //CBW size
 	mov	dptr,#(_EP2 + 0x001a)
 	movx	a,@dptr
 	mov	r7,a
-	cjne	r7,#0x1F,00230$
-	sjmp	00231$
-00230$:
+	cjne	r7,#0x1f,00252$
+	sjmp	00253$
+00252$:
 	ljmp	00140$
-00231$:
+00253$:
 ;	usb.c:449: scsi_data_residue = 0;
 	clr	a
 	mov	_scsi_data_residue,a
@@ -1607,26 +1617,26 @@ _HandleUSBEvents:
 	movx	a,@dptr
 	mov	r4,a
 ;	usb.c:459: if ((a=='U') && (b=='S') && (c=='B') && (d=='C'))
-	cjne	r7,#0x55,00232$
-	sjmp	00233$
-00232$:
+	cjne	r7,#0x55,00254$
+	sjmp	00255$
+00254$:
 	ljmp	00134$
-00233$:
-	cjne	r6,#0x53,00234$
-	sjmp	00235$
-00234$:
+00255$:
+	cjne	r6,#0x53,00256$
+	sjmp	00257$
+00256$:
 	ljmp	00134$
-00235$:
-	cjne	r5,#0x42,00236$
-	sjmp	00237$
-00236$:
+00257$:
+	cjne	r5,#0x42,00258$
+	sjmp	00259$
+00258$:
 	ljmp	00134$
-00237$:
-	cjne	r4,#0x43,00238$
-	sjmp	00239$
-00238$:
+00259$:
+	cjne	r4,#0x43,00260$
+	sjmp	00261$
+00260$:
 	ljmp	00134$
-00239$:
+00261$:
 ;	usb.c:461: scsi_tag[0] = EP2.fifo;
 	mov	dptr,#(_EP2 + 0x001c)
 	movx	a,@dptr
@@ -1728,12 +1738,11 @@ _HandleUSBEvents:
 	mov	r1,a
 	mov	dptr,#(_EP2 + 0x001c)
 	movx	a,@dptr
-	mov	r6,a
 	mov	@r1,a
 ;	usb.c:472: for(a = 0; a < 16; a++)
 	inc	r7
-	cjne	r7,#0x10,00240$
-00240$:
+	cjne	r7,#0x10,00262$
+00262$:
 	jc	00148$
 ;	usb.c:477: EP2.cs = 0x40;
 	mov	dptr,#(_EP2 + 0x0013)
@@ -1797,24 +1806,24 @@ _HandleUSBEvents:
 ;	usb.c:509: usb_received_data_ready &= ~bmEP2IRQ;
 	mov	dptr,#_usb_received_data_ready
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,#0xFD
-	anl	a,r7
+	anl	acc,#0xfd
 	movx	@dptr,a
 ;	usb.c:510: EPIE |= bmEP2IRQ;
 	mov	dptr,#_EPIE
 	movx	a,@dptr
 	mov	r7,a
-	mov	a,#0x02
-	orl	a,r7
+	mov	r6,#0x00
+	orl	ar7,#0x02
+	mov	dptr,#_EPIE
+	mov	a,r7
 	movx	@dptr,a
 00145$:
 ;	usb.c:514: if (usb_have_csw_ready)
 	mov	dptr,#_usb_have_csw_ready
 	movx	a,@dptr
-	movx	a,@dptr
 	jz	00150$
 ;	usb.c:516: SendCSW2();
+;	usb.c:518: }
 	ljmp	_SendCSW2
 00150$:
 	ret

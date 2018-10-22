@@ -1,7 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 3.4.3 #9212 (Apr 15 2015) (MINGW32)
-; This file was generated Fri Apr 24 20:58:36 2015
+; Version 3.8.0 #10562 (MINGW64)
 ;--------------------------------------------------------
 	.module timers
 	.optsdcc -mmcs51 --model-small
@@ -331,26 +330,22 @@ _tmr1isr:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-	push	ar7
-	push	ar6
-	push	psw
-	mov	psw,#0x00
 ;	timers.c:10: TR1 = 0;
+;	assignBit
 	clr	_TR1
 ;	timers.c:11: TH1 = MSB(tmr1reload);
-	mov	r7,(_tmr1reload + 1)
-	mov	_TH1,r7
+	mov	_TH1,(_tmr1reload + 1)
 ;	timers.c:12: TL1 = LSB(tmr1reload);
-	mov	r6,_tmr1reload
-	mov	_TL1,r6
+	mov	_TL1,_tmr1reload
 ;	timers.c:13: tmr1count++;
 	inc	_tmr1count
 ;	timers.c:14: TR1 = 1;
+;	assignBit
 	setb	_TR1
-	pop	psw
-	pop	ar6
-	pop	ar7
+;	timers.c:15: }
 	reti
+;	eliminated unneeded mov psw,# (no regs used in bank)
+;	eliminated unneeded push/pop psw
 ;	eliminated unneeded push/pop dpl
 ;	eliminated unneeded push/pop dph
 ;	eliminated unneeded push/pop b
@@ -364,17 +359,17 @@ _tmr1isr:
 ;	-----------------------------------------
 _InitTicks:
 ;	timers.c:19: if (XVAL(0xFA60) == 0x0F)
-	mov	dptr,#0xFA60
+	mov	dptr,#0xfa60
 	movx	a,@dptr
 	mov	r7,a
-	cjne	r7,#0x0F,00102$
+	cjne	r7,#0x0f,00102$
 ;	timers.c:21: tmr1reload = 0xF63C;
-	mov	_tmr1reload,#0x3C
-	mov	(_tmr1reload + 1),#0xF6
+	mov	_tmr1reload,#0x3c
+	mov	(_tmr1reload + 1),#0xf6
 	sjmp	00103$
 00102$:
 ;	timers.c:25: tmr1reload = 0-(2500/(XVAL(0xFA60)+2));
-	mov	dptr,#0xFA60
+	mov	dptr,#0xfa60
 	movx	a,@dptr
 	mov	r7,a
 	mov	r6,#0x00
@@ -384,7 +379,7 @@ _InitTicks:
 	clr	a
 	addc	a,r6
 	mov	(__divsint_PARM_2 + 1),a
-	mov	dptr,#0x09C4
+	mov	dptr,#0x09c4
 	lcall	__divsint
 	mov	r6,dpl
 	mov	r7,dph
@@ -399,14 +394,17 @@ _InitTicks:
 ;	timers.c:28: tmr1count = 0;
 	mov	_tmr1count,#0x00
 ;	timers.c:29: TR1 = 0;
+;	assignBit
 	clr	_TR1
 ;	timers.c:30: ET1 = 1;
+;	assignBit
 	setb	_ET1
 ;	timers.c:31: TMOD = TMOD & 0x0F | 0x10;
-	mov	a,#0x0F
-	anl	a,_TMOD
-	orl	a,#0x10
-	mov	_TMOD,a
+	mov	r6,_TMOD
+	anl	ar6,#0x0f
+	orl	ar6,#0x10
+	mov	_TMOD,r6
+;	timers.c:32: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'GetTickCount'
@@ -418,6 +416,7 @@ _InitTicks:
 _GetTickCount:
 ;	timers.c:36: return tmr1count;
 	mov	dpl,_tmr1count
+;	timers.c:37: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'tmr0isr'
@@ -431,20 +430,22 @@ _tmr0isr:
 	push	dpl
 	push	dph
 	push	ar7
+	push	ar6
 	push	psw
 	mov	psw,#0x00
 ;	timers.c:42: TR0 = 0;
+;	assignBit
 	clr	_TR0
 ;	timers.c:43: TL0 = 0xE6;
-	mov	_TL0,#0xE6
+	mov	_TL0,#0xe6
 ;	timers.c:44: TH0 = 0x96;
 	mov	_TH0,#0x96
 ;	timers.c:45: TR0 = 1;
+;	assignBit
 	setb	_TR0
 ;	timers.c:47: if ((GPIO0OUT & 2) == 0) //turned off
 	mov	dptr,#_GPIO0OUT
 	movx	a,@dptr
-	mov	r7,a
 	jb	acc.1,00102$
 ;	timers.c:49: return;
 	sjmp	00114$
@@ -464,7 +465,7 @@ _tmr0isr:
 ;	timers.c:59: led_ticks = 0;
 	mov	_led_ticks,#0x00
 ;	timers.c:60: if (led_timer >= 31)
-	mov	a,#0x100 - 0x1F
+	mov	a,#0x100 - 0x1f
 	add	a,_led_timer
 	jnc	00106$
 ;	timers.c:62: GPIO0OUT = 1;
@@ -477,7 +478,7 @@ _tmr0isr:
 	sjmp	00114$
 00106$:
 ;	timers.c:67: if (led_timer >= 10)
-	mov	a,#0x100 - 0x0A
+	mov	a,#0x100 - 0x0a
 	add	a,_led_timer
 	jnc	00108$
 ;	timers.c:69: GPIO0OUT = ~GPIO0OUT;
@@ -500,14 +501,11 @@ _tmr0isr:
 ;	timers.c:79: if (GPIO0OUT & 1)
 	mov	dptr,#_GPIO0OUT
 	movx	a,@dptr
-	mov	r7,a
 	jnb	acc.0,00112$
 ;	timers.c:81: GPIO0OUT &= 0xFE;
 	mov	dptr,#_GPIO0OUT
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,#0xFE
-	anl	a,r7
+	anl	acc,#0xfe
 	movx	@dptr,a
 	sjmp	00114$
 00112$:
@@ -515,11 +513,15 @@ _tmr0isr:
 	mov	dptr,#_GPIO0OUT
 	movx	a,@dptr
 	mov	r7,a
-	mov	a,#0x01
-	orl	a,r7
+	mov	r6,#0x00
+	orl	ar7,#0x01
+	mov	dptr,#_GPIO0OUT
+	mov	a,r7
 	movx	@dptr,a
 00114$:
+;	timers.c:87: }
 	pop	psw
+	pop	ar6
 	pop	ar7
 	pop	dph
 	pop	dpl
@@ -539,6 +541,7 @@ _SetLEDThreshold:
 	mov	r6,dpl
 ;	timers.c:91: led_tick_threshold = threshold;
 	mov	_led_tick_threshold,r6
+;	timers.c:92: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'InitLED'
@@ -561,11 +564,15 @@ _InitLED:
 ;	timers.c:100: led_timer = 0;
 	mov	_led_timer,#0x00
 ;	timers.c:101: EA = 1;
+;	assignBit
 	setb	_EA
 ;	timers.c:102: ET0 = 1;
+;	assignBit
 	setb	_ET0
 ;	timers.c:103: TR0 = 1;
+;	assignBit
 	setb	_TR0
+;	timers.c:104: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'LEDBlink'
@@ -581,6 +588,7 @@ _LEDBlink:
 	movx	@dptr,a
 ;	timers.c:109: led_timer = 1;
 	mov	_led_timer,#0x01
+;	timers.c:110: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'LEDOff'
@@ -596,6 +604,7 @@ _LEDOff:
 	movx	@dptr,a
 ;	timers.c:115: led_timer = 0;
 	mov	_led_timer,#0x00
+;	timers.c:116: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

@@ -1,7 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 3.4.3 #9212 (Apr 15 2015) (MINGW32)
-; This file was generated Fri Apr 24 20:58:34 2015
+; Version 3.8.0 #10562 (MINGW64)
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -365,7 +364,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'InitHardware'
 ;------------------------------------------------------------
-;	main.c:24: void InitHardware()
+;	main.c:25: void InitHardware()
 ;	-----------------------------------------
 ;	 function InitHardware
 ;	-----------------------------------------
@@ -378,223 +377,222 @@ _InitHardware:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	main.c:27: BANK0PAL = BANK0_PA>>9;
+;	main.c:28: BANK0PAL = BANK0_PA>>9;
 	mov	dptr,#_BANK0PAL
 	mov	a,#0x40
 	movx	@dptr,a
-;	main.c:28: BANK0PAH = BANK0_PA>>17;
+;	main.c:29: BANK0PAH = BANK0_PA>>17;
 	mov	dptr,#_BANK0PAH
 	clr	a
 	movx	@dptr,a
-;	main.c:29: BANK1VA  = BANK1_VA>>8;
+;	main.c:30: BANK1VA  = BANK1_VA>>8;
 	mov	dptr,#_BANK1VA
 	mov	a,#0x40
 	movx	@dptr,a
-;	main.c:30: BANK1PAL = BANK1_PA>>9;
+;	main.c:31: BANK1PAL = BANK1_PA>>9;
 	mov	dptr,#_BANK1PAL
 	mov	a,#0x60
 	movx	@dptr,a
-;	main.c:31: BANK1PAH = BANK1_PA>>17;
+;	main.c:32: BANK1PAH = BANK1_PA>>17;
 	mov	dptr,#_BANK1PAH
 	clr	a
 	movx	@dptr,a
-;	main.c:32: BANK2VA  = BANK2_VA>>8;
+;	main.c:33: BANK2VA  = BANK2_VA>>8;
 	mov	dptr,#_BANK2VA
 	mov	a,#0x60
 	movx	@dptr,a
-;	main.c:33: BANK2PAL = BANK2_PA>>9;
+;	main.c:34: BANK2PAL = BANK2_PA>>9;
 	mov	dptr,#_BANK2PAL
 	mov	a,#0x70
 	movx	@dptr,a
-;	main.c:34: BANK2PAH = BANK2_PA>>17;
+;	main.c:35: BANK2PAH = BANK2_PA>>17;
 	mov	dptr,#_BANK2PAH
 	clr	a
 	movx	@dptr,a
-;	main.c:36: XVAL(0xF809) = 7;
-	mov	dptr,#0xF809
+;	main.c:37: XVAL(0xF809) = 7;
+	mov	dptr,#0xf809
 	mov	a,#0x07
 	movx	@dptr,a
-;	main.c:37: XVAL(0xF80A) = 0x1F;
-	mov	dptr,#0xF80A
-	mov	a,#0x1F
+;	main.c:38: XVAL(0xF80A) = 0x1F;
+	mov	dptr,#0xf80a
+	mov	a,#0x1f
 	movx	@dptr,a
-;	main.c:38: XVAL(0xF810) = 0x60;
-	mov	dptr,#0xF810
+;	main.c:39: XVAL(0xF810) = 0x60;
+	mov	dptr,#0xf810
 	mov	a,#0x60
 	movx	@dptr,a
-;	main.c:39: XVAL(0xF811) = 0;
-	mov	dptr,#0xF811
+;	main.c:40: XVAL(0xF811) = 0;
+	mov	dptr,#0xf811
 	clr	a
 	movx	@dptr,a
-;	main.c:40: XVAL(0xF08F) = 0;
-	mov	dptr,#0xF08F
+;	main.c:41: XVAL(0xF08F) = 0;
+	mov	dptr,#0xf08f
 	movx	@dptr,a
-;	main.c:42: XVAL(0xFA6F) = 0x1F;
-	mov	dptr,#0xFA6F
-	mov	a,#0x1F
+;	main.c:43: XVAL(0xFA6F) = 0x1F;
+	mov	dptr,#0xfa6f
+	mov	a,#0x1f
 	movx	@dptr,a
-;	main.c:43: XVAL(0xFA60) = 2;
-	mov	dptr,#0xFA60
+;	main.c:44: XVAL(0xFA60) = 2;
+	mov	dptr,#0xfa60
 	mov	a,#0x02
 	movx	@dptr,a
-;	main.c:44: XVAL(0xFA61) = 0;
-	mov	dptr,#0xFA61
+;	main.c:45: XVAL(0xFA61) = 0;
+	mov	dptr,#0xfa61
 	clr	a
 	movx	@dptr,a
-;	main.c:45: XVAL(0xFA64) = 0;
-	mov	dptr,#0xFA64
+;	main.c:46: XVAL(0xFA64) = 0;
+	mov	dptr,#0xfa64
 	movx	@dptr,a
-;	main.c:46: XVAL(0xFA65) = 0;
-	mov	dptr,#0xFA65
+;	main.c:47: XVAL(0xFA65) = 0;
+	mov	dptr,#0xfa65
 	movx	@dptr,a
-;	main.c:47: XVAL(0xFA66) = 0;
-	mov	dptr,#0xFA66
+;	main.c:48: XVAL(0xFA66) = 0;
+	mov	dptr,#0xfa66
 	movx	@dptr,a
-;	main.c:48: XVAL(0xFA67) = 0;
-	mov	dptr,#0xFA67
+;	main.c:49: XVAL(0xFA67) = 0;
+	mov	dptr,#0xfa67
 	movx	@dptr,a
-;	main.c:49: XVAL(0xFA62) = 0x0F;
-	mov	dptr,#0xFA62
-	mov	a,#0x0F
+;	main.c:50: XVAL(0xFA62) = 0x0F;
+	mov	dptr,#0xfa62
+	mov	a,#0x0f
 	movx	@dptr,a
-;	main.c:50: XVAL(0xFA6F) = 0x1F;
-	mov	dptr,#0xFA6F
-	mov	a,#0x1F
+;	main.c:51: XVAL(0xFA6F) = 0x1F;
+	mov	dptr,#0xfa6f
+	mov	a,#0x1f
 	movx	@dptr,a
-;	main.c:52: GPIO0DIR &= 0xFD;
+;	main.c:53: GPIO0DIR &= 0xFD;
 	mov	dptr,#_GPIO0DIR
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,#0xFD
-	anl	a,r7
+	anl	acc,#0xfd
 	movx	@dptr,a
-;	main.c:53: GPIO0OUT |= 2;
+;	main.c:54: GPIO0OUT |= 2;
 	mov	dptr,#_GPIO0OUT
 	movx	a,@dptr
 	mov	r7,a
-	mov	a,#0x02
-	orl	a,r7
+	orl	ar7,#0x02
+	mov	dptr,#_GPIO0OUT
+	mov	a,r7
 	movx	@dptr,a
-;	main.c:55: XVAL(0xFA21) = 7;
-;	main.c:56: XVAL(0xFA21) &= 0xFB;
-	mov	dptr,#0xFA21
+;	main.c:56: XVAL(0xFA21) = 7;
+;	main.c:57: XVAL(0xFA21) &= 0xFB;
+	mov	dptr,#0xfa21
 	mov	a,#0x07
 	movx	@dptr,a
 	movx	a,@dptr
 	mov	r7,a
-	anl	ar7,#0xFB
-	mov	dptr,#0xFA21
+	anl	ar7,#0xfb
+	mov	dptr,#0xfa21
 	mov	a,r7
 	movx	@dptr,a
-;	main.c:58: XVAL(0xFA68) &= 0xF7;
-	mov	dptr,#0xFA68
+;	main.c:59: XVAL(0xFA68) &= 0xF7;
+	mov	dptr,#0xfa68
 	movx	a,@dptr
-	anl	a,#0xF7
+	anl	a,#0xf7
 	movx	@dptr,a
-;	main.c:59: XVAL(0xFA69) &= 0xF7;
-	mov	dptr,#0xFA69
+;	main.c:60: XVAL(0xFA69) &= 0xF7;
+	mov	dptr,#0xfa69
 	movx	a,@dptr
-	anl	a,#0xF7
+	anl	a,#0xf7
 	movx	@dptr,a
-;	main.c:60: XVAL(0xFA6A) &= 0xF7;
-	mov	dptr,#0xFA6A
+;	main.c:61: XVAL(0xFA6A) &= 0xF7;
+	mov	dptr,#0xfa6a
 	movx	a,@dptr
-	anl	a,#0xF7
+	anl	a,#0xf7
 	movx	@dptr,a
-;	main.c:61: XVAL(0xFA6B) &= 0xF7;
-	mov	dptr,#0xFA6B
+;	main.c:62: XVAL(0xFA6B) &= 0xF7;
+	mov	dptr,#0xfa6b
 	movx	a,@dptr
-	anl	a,#0xF7
+	anl	a,#0xf7
 	movx	@dptr,a
-;	main.c:63: XVAL(0xFE00) = 0;
-;	main.c:64: XVAL(0xFE00) = 0x80;
-	mov	dptr,#0xFE00
+;	main.c:64: XVAL(0xFE00) = 0;
+;	main.c:65: XVAL(0xFE00) = 0x80;
+	mov	dptr,#0xfe00
 	clr	a
 	movx	@dptr,a
 	mov	a,#0x80
 	movx	@dptr,a
-;	main.c:66: XVAL(0xFA50) = 0x20;
-	mov	dptr,#0xFA50
+;	main.c:67: XVAL(0xFA50) = 0x20;
+	mov	dptr,#0xfa50
 	mov	a,#0x20
 	movx	@dptr,a
-;	main.c:68: XVAL(0xFE01) = 0;
-	mov	dptr,#0xFE01
+;	main.c:69: XVAL(0xFE01) = 0;
+	mov	dptr,#0xfe01
 	clr	a
 	movx	@dptr,a
-;	main.c:69: XVAL(0xFE02) = 0x45;
-	mov	dptr,#0xFE02
+;	main.c:70: XVAL(0xFE02) = 0x45;
+	mov	dptr,#0xfe02
 	mov	a,#0x45
 	movx	@dptr,a
-;	main.c:71: TMOD = 0x11;
+;	main.c:72: TMOD = 0x11;
 	mov	_TMOD,#0x11
-;	main.c:72: TH0 = 0xF0;
-	mov	_TH0,#0xF0
-;	main.c:73: TL0 = 0x5F;
-	mov	_TL0,#0x5F
-;	main.c:74: TH1 = 0xF0;
-	mov	_TH1,#0xF0
-;	main.c:75: TL1 = 0x5F;
-	mov	_TL1,#0x5F
-;	main.c:76: IP = 1;
+;	main.c:73: TH0 = 0xF0;
+	mov	_TH0,#0xf0
+;	main.c:74: TL0 = 0x5F;
+	mov	_TL0,#0x5f
+;	main.c:75: TH1 = 0xF0;
+	mov	_TH1,#0xf0
+;	main.c:76: TL1 = 0x5F;
+	mov	_TL1,#0x5f
+;	main.c:77: IP = 1;
 	mov	_IP,#0x01
-;	main.c:77: TCON = 0x10;
+;	main.c:78: TCON = 0x10;
 	mov	_TCON,#0x10
-;	main.c:78: SCON = 0;
+;	main.c:79: SCON = 0;
 	mov	_SCON,#0x00
-;	main.c:79: IE = 0x80;
+;	main.c:80: IE = 0x80;
 	mov	_IE,#0x80
+;	main.c:81: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'DoUSBRelatedInit'
 ;------------------------------------------------------------
-;	main.c:82: void DoUSBRelatedInit()
+;	main.c:83: void DoUSBRelatedInit()
 ;	-----------------------------------------
 ;	 function DoUSBRelatedInit
 ;	-----------------------------------------
 _DoUSBRelatedInit:
-;	main.c:84: if (WARMSTATUS & 2)
+;	main.c:85: if (WARMSTATUS & 2)
 	mov	dptr,#_WARMSTATUS
 	movx	a,@dptr
-	mov	r7,a
 	jnb	acc.1,00102$
-;	main.c:86: return;
+;	main.c:87: return;
 	ret
 00102$:
-;	main.c:89: REGBANK = 5;
+;	main.c:90: REGBANK = 5;
 	mov	dptr,#_REGBANK
 	mov	a,#0x05
 	movx	@dptr,a
-;	main.c:90: XVAL(0xF210) = 0xFF;
-	mov	dptr,#0xF210
-	mov	a,#0xFF
+;	main.c:91: XVAL(0xF210) = 0xFF;
+	mov	dptr,#0xf210
+	mov	a,#0xff
 	movx	@dptr,a
-;	main.c:91: XVAL(0xF211) = 2;
-	mov	dptr,#0xF211
+;	main.c:92: XVAL(0xF211) = 2;
+	mov	dptr,#0xf211
 	mov	a,#0x02
 	movx	@dptr,a
-;	main.c:92: XVAL(0xF212) = 3;
-	mov	dptr,#0xF212
+;	main.c:93: XVAL(0xF212) = 3;
+	mov	dptr,#0xf212
 	inc	a
 	movx	@dptr,a
-;	main.c:93: XVAL(0xF213) = 0x24;
-	mov	dptr,#0xF213
+;	main.c:94: XVAL(0xF213) = 0x24;
+	mov	dptr,#0xf213
 	mov	a,#0x24
 	movx	@dptr,a
-;	main.c:94: REGBANK = 0;
+;	main.c:95: REGBANK = 0;
 	mov	dptr,#_REGBANK
 	clr	a
 	movx	@dptr,a
-;	main.c:95: XVAL(0xFA6B) = 0xFF;
-	mov	dptr,#0xFA6B
+;	main.c:96: XVAL(0xFA6B) = 0xFF;
+	mov	dptr,#0xfa6b
 	dec	a
 	movx	@dptr,a
-;	main.c:96: while((XVAL(0xF014) & 3)==0);
+;	main.c:97: while((XVAL(0xF014) & 3)==0);
 00103$:
-	mov	dptr,#0xF014
+	mov	dptr,#0xf014
 	movx	a,@dptr
-	mov	r7,a
 	anl	a,#0x03
 	jz	00103$
+;	main.c:98: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SendKey'
@@ -603,25 +601,24 @@ _DoUSBRelatedInit:
 ;code                      Allocated to registers r7 
 ;i                         Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	main.c:99: void SendKey(BYTE code, BYTE modifiers)
+;	main.c:100: void SendKey(BYTE code, BYTE modifiers)
 ;	-----------------------------------------
 ;	 function SendKey
 ;	-----------------------------------------
 _SendKey:
 	mov	r7,dpl
-;	main.c:103: EP3.cs = 0;
+;	main.c:104: EP3.cs = 0;
 	mov	dptr,#(_EP3 + 0x0013)
 	clr	a
 	movx	@dptr,a
-;	main.c:104: while (EP3.cs & 0x40);
+;	main.c:105: while (EP3.cs & 0x40);
 00101$:
 	mov	dptr,#(_EP3 + 0x0013)
 	movx	a,@dptr
-	mov	r6,a
 	jb	acc.6,00101$
-;	main.c:106: EP3.fifo = modifiers;
-;	main.c:107: EP3.fifo = 0;
-;	main.c:108: EP3.fifo = code;
+;	main.c:107: EP3.fifo = modifiers;
+;	main.c:108: EP3.fifo = 0;
+;	main.c:109: EP3.fifo = code;
 	mov	dptr,#(_EP3 + 0x001c)
 	mov	a,_SendKey_PARM_2
 	movx	@dptr,a
@@ -629,19 +626,19 @@ _SendKey:
 	movx	@dptr,a
 	mov	a,r7
 	movx	@dptr,a
-;	main.c:109: for (i = 0; i < 5; i++)
+;	main.c:110: for (i = 0; i < 5; i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
 00105$:
-;	main.c:111: EP3.fifo = 0;
+;	main.c:112: EP3.fifo = 0;
 	mov	dptr,#(_EP3 + 0x001c)
 	clr	a
 	movx	@dptr,a
-;	main.c:109: for (i = 0; i < 5; i++)
+;	main.c:110: for (i = 0; i < 5; i++)
 	inc	r6
-	cjne	r6,#0x00,00123$
+	cjne	r6,#0x00,00127$
 	inc	r7
-00123$:
+00127$:
 	clr	c
 	mov	a,r6
 	subb	a,#0x05
@@ -649,60 +646,61 @@ _SendKey:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jc	00105$
-;	main.c:114: EP3.len_l = 8;
+;	main.c:115: EP3.len_l = 8;
 	mov	dptr,#(_EP3 + 0x000c)
 	mov	a,#0x08
 	movx	@dptr,a
-;	main.c:115: EP3.len_m = 0;
+;	main.c:116: EP3.len_m = 0;
 	mov	dptr,#(_EP3 + 0x000d)
 	clr	a
 	movx	@dptr,a
-;	main.c:116: EP3.len_h = 0;
+;	main.c:117: EP3.len_h = 0;
 	mov	dptr,#(_EP3 + 0x000e)
 	movx	@dptr,a
-;	main.c:117: EP3.cs = 0x40;
+;	main.c:118: EP3.cs = 0x40;
 	mov	dptr,#(_EP3 + 0x0013)
 	mov	a,#0x40
 	movx	@dptr,a
+;	main.c:119: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	main.c:120: void main()
+;	main.c:121: void main()
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c:122: InitHardware();
+;	main.c:123: InitHardware();
 	lcall	_InitHardware
-;	main.c:123: DoUSBRelatedInit();
+;	main.c:124: DoUSBRelatedInit();
 	lcall	_DoUSBRelatedInit
-;	main.c:124: InitUSB();
+;	main.c:125: InitUSB();
 	lcall	_InitUSB
-;	main.c:125: InitTicks();
+;	main.c:126: InitTicks();
 	lcall	_InitTicks
-;	main.c:126: InitLED();
+;	main.c:127: InitLED();
 	lcall	_InitLED
-;	main.c:127: LEDBlink();
+;	main.c:128: LEDBlink();
 	lcall	_LEDBlink
-;	main.c:129: while (1)
+;	main.c:130: while (1)
 00114$:
-;	main.c:131: HandleUSBEvents();
+;	main.c:132: HandleUSBEvents();
 	lcall	_HandleUSBEvents
-;	main.c:133: if (wait_tick++ >= KEY_DELAY)
+;	main.c:134: if (wait_tick++ >= KEY_DELAY)
 	mov	r4,_wait_tick
 	mov	r5,(_wait_tick + 1)
 	mov	r6,(_wait_tick + 2)
 	mov	r7,(_wait_tick + 3)
 	inc	_wait_tick
 	clr	a
-	cjne	a,_wait_tick,00139$
+	cjne	a,_wait_tick,00146$
 	inc	(_wait_tick + 1)
-	cjne	a,(_wait_tick + 1),00139$
+	cjne	a,(_wait_tick + 1),00146$
 	inc	(_wait_tick + 2)
-	cjne	a,(_wait_tick + 2),00139$
+	cjne	a,(_wait_tick + 2),00146$
 	inc	(_wait_tick + 3)
-00139$:
+00146$:
 	clr	c
 	mov	a,r5
 	subb	a,#0x20
@@ -710,7 +708,7 @@ _main:
 	subb	a,#0x00
 	mov	a,r7
 	subb	a,#0x00
-;	main.c:135: if (wait_counter < KEY_DELAY)
+;	main.c:136: if (wait_counter < KEY_DELAY)
 	jc	00104$
 	mov	a,(_wait_counter + 1)
 	subb	a,#0x20
@@ -719,18 +717,18 @@ _main:
 	mov	a,(_wait_counter + 3)
 	subb	a,#0x00
 	jnc	00104$
-;	main.c:137: wait_counter++;
+;	main.c:138: wait_counter++;
 	inc	_wait_counter
 	clr	a
-	cjne	a,_wait_counter,00142$
+	cjne	a,_wait_counter,00149$
 	inc	(_wait_counter + 1)
-	cjne	a,(_wait_counter + 1),00142$
+	cjne	a,(_wait_counter + 1),00149$
 	inc	(_wait_counter + 2)
-	cjne	a,(_wait_counter + 2),00142$
+	cjne	a,(_wait_counter + 2),00149$
 	inc	(_wait_counter + 3)
-00142$:
+00149$:
 00104$:
-;	main.c:141: if (send_keys_enabled && wait_counter >= KEY_DELAY)
+;	main.c:142: if (send_keys_enabled && wait_counter >= KEY_DELAY)
 	mov	a,_send_keys_enabled
 	jz	00114$
 	clr	c
@@ -741,7 +739,7 @@ _main:
 	mov	a,(_wait_counter + 3)
 	subb	a,#0x00
 	jc	00114$
-;	main.c:143: if (keyData[key_index])
+;	main.c:144: if (keyData[key_index])
 	mov	a,_key_index
 	add	a,#_keyData
 	mov	r6,a
@@ -753,10 +751,6 @@ _main:
 	clr	a
 	movc	a,@a+dptr
 	jz	00106$
-;	main.c:146: SendKey(0x00, 0x00);
-	mov	_SendKey_PARM_2,#0x00
-	mov	dpl,#0x00
-	lcall	_SendKey
 ;	main.c:147: SendKey(0x00, 0x00);
 	mov	_SendKey_PARM_2,#0x00
 	mov	dpl,#0x00
@@ -769,7 +763,11 @@ _main:
 	mov	_SendKey_PARM_2,#0x00
 	mov	dpl,#0x00
 	lcall	_SendKey
-;	main.c:150: SendKey(keyData[key_index], keyData[key_index + 1]);
+;	main.c:150: SendKey(0x00, 0x00);
+	mov	_SendKey_PARM_2,#0x00
+	mov	dpl,#0x00
+	lcall	_SendKey
+;	main.c:151: SendKey(keyData[key_index], keyData[key_index + 1]);
 	mov	a,_key_index
 	add	a,#_keyData
 	mov	dpl,a
@@ -796,40 +794,41 @@ _main:
 	mov	_SendKey_PARM_2,a
 	mov	dpl,r7
 	lcall	_SendKey
-;	main.c:151: SendKey(0x00, 0x00);
+;	main.c:152: SendKey(0x00, 0x00);
 	mov	_SendKey_PARM_2,#0x00
 	mov	dpl,#0x00
 	lcall	_SendKey
 	sjmp	00107$
 00106$:
-;	main.c:156: wait_counter = 0;
+;	main.c:157: wait_counter = 0;
 	clr	a
 	mov	_wait_counter,a
 	mov	(_wait_counter + 1),a
 	mov	(_wait_counter + 2),a
 	mov	(_wait_counter + 3),a
-;	main.c:157: wait_tick = 0;
+;	main.c:158: wait_tick = 0;
 	mov	_wait_tick,a
 	mov	(_wait_tick + 1),a
 	mov	(_wait_tick + 2),a
 	mov	(_wait_tick + 3),a
 00107$:
-;	main.c:161: key_index += 2;
+;	main.c:162: key_index += 2;
 	mov	a,#0x02
 	add	a,_key_index
 	mov	_key_index,a
 	clr	a
 	addc	a,(_key_index + 1)
-;	main.c:164: if (key_index >= sizeof(keyData))
+;	main.c:165: if (key_index >= sizeof(keyData))
 	mov	(_key_index + 1),a
 	clr	c
 	xrl	a,#0x80
 	subb	a,#0xa0
-	jnc	00146$
+	jnc	00153$
 	ljmp	00114$
-00146$:
-;	main.c:166: send_keys_enabled = 0;
+00153$:
+;	main.c:167: send_keys_enabled = 0;
 	mov	_send_keys_enabled,#0x00
+;	main.c:171: }
 	ljmp	00114$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

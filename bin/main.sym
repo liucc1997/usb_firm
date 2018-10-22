@@ -226,7 +226,7 @@ Symbol Table
     _DMASRCM                                                    =  00F901 G
     _DPH                                                        =  000083 G
     _DPL                                                        =  000082 G
- 18 _DoUSBRelatedInit                                              0000E8 GR
+ 18 _DoUSBRelatedInit                                              0000EB GR
     _EA                                                         =  0000AF G
     _EP0                                                        =  00F1C0 G
     _EP0CS                                                      =  00F048 G
@@ -294,7 +294,7 @@ Symbol Table
     _SM1                                                        =  00009E G
     _SM2                                                        =  00009D G
     _SP                                                         =  000081 G
- 18 _SendKey                                                       000122 GR
+ 18 _SendKey                                                       000123 GR
   6 _SendKey_PARM_2                                                000000 GR
     _T0                                                         =  0000B4 G
     _T1                                                         =  0000B5 G
