@@ -301,7 +301,7 @@ _PRAMCTL	=	0xfa48
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'EP0ACK'
 ;------------------------------------------------------------
-;	control.c:28: void EP0ACK()
+;	control.c:83: void EP0ACK()
 ;	-----------------------------------------
 ;	 function EP0ACK
 ;	-----------------------------------------
@@ -314,39 +314,39 @@ _EP0ACK:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	control.c:30: EP0CS = bmEP0ACK;
+;	control.c:85: EP0CS = bmEP0ACK;
 	mov	dptr,#_EP0CS
 	mov	a,#0x01
 	movx	@dptr,a
-;	control.c:31: }
+;	control.c:86: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SetAddress'
 ;------------------------------------------------------------
 ;ret                       Allocated to registers r7 
 ;------------------------------------------------------------
-;	control.c:33: static BYTE SetAddress()
+;	control.c:88: static BYTE SetAddress()
 ;	-----------------------------------------
 ;	 function SetAddress
 ;	-----------------------------------------
 _SetAddress:
-;	control.c:35: BYTE ret = FALSE;
+;	control.c:90: BYTE ret = FALSE;
 	mov	r7,#0x00
-;	control.c:37: if (wValue < 0x7F)
+;	control.c:92: if (wValue < 0x7F)
 	clr	c
 	mov	a,_wValue
 	subb	a,#0x7f
 	mov	a,(_wValue + 1)
 	subb	a,#0x00
 	jnc	00102$
-;	control.c:39: EP0ACK();
+;	control.c:94: EP0ACK();
 	lcall	_EP0ACK
-;	control.c:40: ret = TRUE;
+;	control.c:95: ret = TRUE;
 	mov	r7,#0x01
 00102$:
-;	control.c:43: return ret;
+;	control.c:98: return ret;
 	mov	dpl,r7
-;	control.c:44: }
+;	control.c:99: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'GetDescriptor'
@@ -356,16 +356,16 @@ _SetAddress:
 ;total                     Allocated to registers r5 
 ;ret                       Allocated to registers r6 
 ;------------------------------------------------------------
-;	control.c:46: static BYTE GetDescriptor()
+;	control.c:101: static BYTE GetDescriptor()
 ;	-----------------------------------------
 ;	 function GetDescriptor
 ;	-----------------------------------------
 _GetDescriptor:
-;	control.c:48: BYTE type = (wValue >> 8) & 0xFF;
+;	control.c:103: BYTE type = (wValue >> 8) & 0xFF;
 	mov	r7,(_wValue + 1)
-;	control.c:50: BYTE ret = FALSE;
+;	control.c:105: BYTE ret = FALSE;
 	mov	r6,#0x00
-;	control.c:52: switch (type)
+;	control.c:107: switch (type)
 	cjne	r7,#0x01,00198$
 	sjmp	00134$
 00198$:
@@ -379,21 +379,21 @@ _GetDescriptor:
 	ljmp	00143$
 00201$:
 	ljmp	00110$
-;	control.c:56: for (i = 0; i < 0x12; i++)
+;	control.c:111: for (i = 0; i < 0x12; i++)
 00134$:
 	mov	r7,#0x00
 00111$:
-;	control.c:58: EP0.fifo = deviceDescriptor[i];
+;	control.c:113: EP0.fifo = deviceDescriptor[i];
 	mov	a,r7
 	mov	dptr,#_deviceDescriptor
 	movc	a,@a+dptr
 	mov	dptr,#(_EP0 + 0x001c)
 	movx	@dptr,a
-;	control.c:56: for (i = 0; i < 0x12; i++)
+;	control.c:111: for (i = 0; i < 0x12; i++)
 	inc	r7
 	cjne	r7,#0x12,00202$
 00202$:
-;	control.c:61: SendControlResponse(wLength < 0x12 ? wLength : 0x12);
+;	control.c:116: SendControlResponse(wLength < 0x12 ? wLength : 0x12);
 	jc	00111$
 	mov	a,_wLength
 	subb	a,#0x12
@@ -410,13 +410,13 @@ _GetDescriptor:
 	mov	dpl,r5
 	mov	dph,r7
 	lcall	_SendControlResponse
-;	control.c:62: ret = TRUE;
+;	control.c:117: ret = TRUE;
 	mov	r6,#0x01
-;	control.c:64: break;
+;	control.c:119: break;
 	ljmp	00110$
-;	control.c:66: case 0x02:
+;	control.c:121: case 0x02:
 00103$:
-;	control.c:68: total = wLength < sizeof(configDescriptor) ? wLength : sizeof(configDescriptor);
+;	control.c:123: total = wLength < sizeof(configDescriptor) ? wLength : sizeof(configDescriptor);
 	clr	c
 	mov	a,_wLength
 	subb	a,#0x47
@@ -430,48 +430,48 @@ _GetDescriptor:
 	mov	r5,#0x47
 	mov	r7,#0x00
 00125$:
-;	control.c:69: for (i = 0; i < total; i++)
+;	control.c:124: for (i = 0; i < total; i++)
 	mov	r7,#0x00
 00114$:
 	clr	c
 	mov	a,r7
 	subb	a,r5
 	jnc	00104$
-;	control.c:71: EP0.fifo = configDescriptor[i];
+;	control.c:126: EP0.fifo = configDescriptor[i];
 	mov	a,r7
 	mov	dptr,#_configDescriptor
 	movc	a,@a+dptr
 	mov	r4,a
 	mov	dptr,#(_EP0 + 0x001c)
 	movx	@dptr,a
-;	control.c:69: for (i = 0; i < total; i++)
+;	control.c:124: for (i = 0; i < total; i++)
 	inc	r7
 	sjmp	00114$
 00104$:
-;	control.c:74: SendControlResponse(total);
+;	control.c:129: SendControlResponse(total);
 	mov	r7,#0x00
 	mov	dpl,r5
 	mov	dph,r7
 	lcall	_SendControlResponse
-;	control.c:75: ret = TRUE;
+;	control.c:130: ret = TRUE;
 	mov	r6,#0x01
-;	control.c:77: break;
-;	control.c:81: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
+;	control.c:132: break;
+;	control.c:136: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
 	sjmp	00110$
 00140$:
 	mov	r7,#0x00
 00116$:
-;	control.c:83: EP0.fifo = deviceQualifierDescriptor[i];
+;	control.c:138: EP0.fifo = deviceQualifierDescriptor[i];
 	mov	a,r7
 	mov	dptr,#_deviceQualifierDescriptor
 	movc	a,@a+dptr
 	mov	dptr,#(_EP0 + 0x001c)
 	movx	@dptr,a
-;	control.c:81: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
+;	control.c:136: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
 	inc	r7
 	cjne	r7,#0x0a,00207$
 00207$:
-;	control.c:86: SendControlResponse(wLength < sizeof(deviceQualifierDescriptor) ? wLength : sizeof(deviceQualifierDescriptor));
+;	control.c:141: SendControlResponse(wLength < sizeof(deviceQualifierDescriptor) ? wLength : sizeof(deviceQualifierDescriptor));
 	jc	00116$
 	mov	a,_wLength
 	subb	a,#0x0a
@@ -488,25 +488,25 @@ _GetDescriptor:
 	mov	dpl,r5
 	mov	dph,r7
 	lcall	_SendControlResponse
-;	control.c:87: ret = TRUE;
+;	control.c:142: ret = TRUE;
 	mov	r6,#0x01
-;	control.c:89: break;
-;	control.c:93: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
+;	control.c:144: break;
+;	control.c:148: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
 	sjmp	00110$
 00143$:
 	mov	r7,#0x00
 00118$:
-;	control.c:95: EP0.fifo = HIDreportDescriptor[i];
+;	control.c:150: EP0.fifo = HIDreportDescriptor[i];
 	mov	a,r7
 	mov	dptr,#_HIDreportDescriptor
 	movc	a,@a+dptr
 	mov	dptr,#(_EP0 + 0x001c)
 	movx	@dptr,a
-;	control.c:93: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
+;	control.c:148: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
 	inc	r7
 	cjne	r7,#0x3f,00210$
 00210$:
-;	control.c:98: SendControlResponse(wLength < sizeof(HIDreportDescriptor) ? wLength : sizeof(HIDreportDescriptor));
+;	control.c:153: SendControlResponse(wLength < sizeof(HIDreportDescriptor) ? wLength : sizeof(HIDreportDescriptor));
 	jc	00118$
 	mov	a,_wLength
 	subb	a,#0x3f
@@ -523,51 +523,39 @@ _GetDescriptor:
 	mov	dpl,r5
 	mov	dph,r7
 	lcall	_SendControlResponse
-;	control.c:99: ret = TRUE;
+;	control.c:154: ret = TRUE;
 	mov	r6,#0x01
-;	control.c:107: }
+;	control.c:162: }
 00110$:
-;	control.c:109: return ret;
+;	control.c:164: return ret;
 	mov	dpl,r6
-;	control.c:110: }
+;	control.c:165: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SetConfiguration'
 ;------------------------------------------------------------
-;ret                       Allocated to registers r7 
+;ret                       Allocated to registers 
 ;------------------------------------------------------------
-;	control.c:112: static BYTE SetConfiguration()
+;	control.c:167: static BYTE SetConfiguration()
 ;	-----------------------------------------
 ;	 function SetConfiguration
 ;	-----------------------------------------
 _SetConfiguration:
-;	control.c:114: BYTE ret = FALSE;
-	mov	r7,#0x00
-;	control.c:116: if (wValue <= 1)
-	clr	c
-	mov	a,#0x01
-	subb	a,_wValue
-	clr	a
-	subb	a,(_wValue + 1)
-	jc	00102$
-;	control.c:118: EP0ACK();
+;	control.c:174: EP0ACK();
 	lcall	_EP0ACK
-;	control.c:119: ret = TRUE;
-	mov	r7,#0x01
-00102$:
-;	control.c:122: return ret;
-	mov	dpl,r7
-;	control.c:123: }
+;	control.c:178: return ret;
+	mov	dpl,#0x01
+;	control.c:179: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleStandardRequest'
 ;------------------------------------------------------------
-;	control.c:125: BYTE HandleStandardRequest()
+;	control.c:181: BYTE HandleStandardRequest()
 ;	-----------------------------------------
 ;	 function HandleStandardRequest
 ;	-----------------------------------------
 _HandleStandardRequest:
-;	control.c:127: switch(bRequest)
+;	control.c:183: switch(bRequest)
 	mov	a,#0x05
 	cjne	a,_bRequest,00120$
 	sjmp	00101$
@@ -577,40 +565,40 @@ _HandleStandardRequest:
 	sjmp	00102$
 00121$:
 	mov	a,#0x09
-;	control.c:129: case 0x05:
+;	control.c:185: case 0x05:
 	cjne	a,_bRequest,00104$
 	sjmp	00103$
 00101$:
-;	control.c:131: return SetAddress();
-;	control.c:133: case 0x06:
+;	control.c:187: return SetAddress();
+;	control.c:189: case 0x06:
 	ljmp	_SetAddress
 00102$:
-;	control.c:135: return GetDescriptor();
-;	control.c:137: case 0x09:
+;	control.c:191: return GetDescriptor();
+;	control.c:193: case 0x09:
 	ljmp	_GetDescriptor
 00103$:
-;	control.c:139: return SetConfiguration();
-;	control.c:141: default:
+;	control.c:195: return SetConfiguration();
+;	control.c:197: default:
 	ljmp	_SetConfiguration
 00104$:
-;	control.c:143: return FALSE;
+;	control.c:199: return FALSE;
 	mov	dpl,#0x00
-;	control.c:145: }
-;	control.c:146: }
+;	control.c:201: }
+;	control.c:202: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'GetMaxLUN'
 ;------------------------------------------------------------
-;	control.c:148: static BYTE GetMaxLUN()
+;	control.c:204: static BYTE GetMaxLUN()
 ;	-----------------------------------------
 ;	 function GetMaxLUN
 ;	-----------------------------------------
 _GetMaxLUN:
-;	control.c:150: EP0.fifo = 0x00;
+;	control.c:206: EP0.fifo = 0x00;
 	mov	dptr,#(_EP0 + 0x001c)
 	clr	a
 	movx	@dptr,a
-;	control.c:151: SendControlResponse(wLength < 0x01 ? wLength : 0x01);
+;	control.c:207: SendControlResponse(wLength < 0x01 ? wLength : 0x01);
 	clr	c
 	mov	a,_wLength
 	subb	a,#0x01
@@ -627,19 +615,19 @@ _GetMaxLUN:
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_SendControlResponse
-;	control.c:153: return TRUE;
+;	control.c:209: return TRUE;
 	mov	dpl,#0x01
-;	control.c:154: }
+;	control.c:210: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleClassRequest'
 ;------------------------------------------------------------
-;	control.c:156: BYTE HandleClassRequest()
+;	control.c:212: BYTE HandleClassRequest()
 ;	-----------------------------------------
 ;	 function HandleClassRequest
 ;	-----------------------------------------
 _HandleClassRequest:
-;	control.c:158: switch(bRequest)
+;	control.c:214: switch(bRequest)
 	mov	a,#0x09
 	cjne	a,_bRequest,00120$
 	sjmp	00101$
@@ -649,46 +637,46 @@ _HandleClassRequest:
 	sjmp	00102$
 00121$:
 	mov	a,#0xfe
-;	control.c:160: case 0x09:
+;	control.c:216: case 0x09:
 	cjne	a,_bRequest,00104$
 	sjmp	00103$
 00101$:
-;	control.c:162: EP0CS = 0x05;
+;	control.c:218: EP0CS = 0x05;
 	mov	dptr,#_EP0CS
 	mov	a,#0x05
 	movx	@dptr,a
-;	control.c:163: return TRUE;
+;	control.c:219: return TRUE;
 	mov	dpl,#0x01
-;	control.c:165: case 0x0A:
+;	control.c:221: case 0x0A:
 	ret
 00102$:
-;	control.c:167: EP0ACK();
+;	control.c:223: EP0ACK();
 	lcall	_EP0ACK
-;	control.c:168: return TRUE;
+;	control.c:224: return TRUE;
 	mov	dpl,#0x01
-;	control.c:170: case 0xFE:
+;	control.c:226: case 0xFE:
 	ret
 00103$:
-;	control.c:172: return GetMaxLUN();
-;	control.c:174: default:
+;	control.c:228: return GetMaxLUN();
+;	control.c:230: default:
 	ljmp	_GetMaxLUN
 00104$:
-;	control.c:176: return FALSE;
+;	control.c:232: return FALSE;
 	mov	dpl,#0x00
-;	control.c:178: }
-;	control.c:179: }
+;	control.c:234: }
+;	control.c:235: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HandleVendorRequest'
 ;------------------------------------------------------------
-;	control.c:181: BYTE HandleVendorRequest()
+;	control.c:237: BYTE HandleVendorRequest()
 ;	-----------------------------------------
 ;	 function HandleVendorRequest
 ;	-----------------------------------------
 _HandleVendorRequest:
-;	control.c:183: return FALSE;
+;	control.c:239: return FALSE;
 	mov	dpl,#0x00
-;	control.c:184: }
+;	control.c:240: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -704,7 +692,7 @@ _deviceDescriptor:
 	.db #0xb4	; 180
 	.db #0x04	; 4
 	.db #0x05	; 5
-	.db #0x10	; 16
+	.db #0x11	; 17
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
@@ -757,7 +745,7 @@ _configDescriptor:
 	.db #0x00	; 0
 	.db #0x02	; 2
 	.db #0x03	; 3
-	.db #0x01	; 1
+	.db #0x02	; 2
 	.db #0x01	; 1
 	.db #0x00	; 0
 	.db #0x09	; 9
@@ -767,7 +755,7 @@ _configDescriptor:
 	.db #0x00	; 0
 	.db #0x01	; 1
 	.db #0x22	; 34
-	.db #0x3f	; 63
+	.db #0x34	; 52	'4'
 	.db #0x00	; 0
 	.db #0x07	; 7
 	.db #0x05	; 5
@@ -846,6 +834,59 @@ _HIDreportDescriptor:
 	.db #0x65	; 101	'e'
 	.db #0x81	; 129
 	.db #0x00	; 0
+	.db #0xc0	; 192
+_HIDreportDescriptorMouse:
+	.db #0x05	; 5
+	.db #0x01	; 1
+	.db #0x09	; 9
+	.db #0x02	; 2
+	.db #0xa1	; 161
+	.db #0x01	; 1
+	.db #0x09	; 9
+	.db #0x01	; 1
+	.db #0xa1	; 161
+	.db #0x00	; 0
+	.db #0x05	; 5
+	.db #0x09	; 9
+	.db #0x19	; 25
+	.db #0x01	; 1
+	.db #0x29	; 41
+	.db #0x03	; 3
+	.db #0x15	; 21
+	.db #0x00	; 0
+	.db #0x25	; 37
+	.db #0x01	; 1
+	.db #0x95	; 149
+	.db #0x03	; 3
+	.db #0x75	; 117	'u'
+	.db #0x01	; 1
+	.db #0x81	; 129
+	.db #0x02	; 2
+	.db #0x95	; 149
+	.db #0x01	; 1
+	.db #0x75	; 117	'u'
+	.db #0x05	; 5
+	.db #0x81	; 129
+	.db #0x03	; 3
+	.db #0x05	; 5
+	.db #0x01	; 1
+	.db #0x09	; 9
+	.db #0x30	; 48	'0'
+	.db #0x09	; 9
+	.db #0x31	; 49	'1'
+	.db #0x09	; 9
+	.db #0x38	; 56	'8'
+	.db #0x15	; 21
+	.db #0x81	; 129
+	.db #0x25	; 37
+	.db #0x7f	; 127
+	.db #0x75	; 117	'u'
+	.db #0x08	; 8
+	.db #0x95	; 149
+	.db #0x03	; 3
+	.db #0x81	; 129
+	.db #0x06	; 6
+	.db #0xc0	; 192
 	.db #0xc0	; 192
 _deviceQualifierDescriptor:
 	.db #0x0a	; 10

@@ -169,7 +169,7 @@ static BYTE SetConfiguration()
 	BYTE ret = FALSE;
 
 	//if (wValue <= 1)
-	if(true)//liucc
+	if(1)//liucc
 	{
 		EP0ACK();
 		ret = TRUE;

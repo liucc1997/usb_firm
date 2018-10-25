@@ -1384,21 +1384,21 @@
       000922 80 0E            [24] 1384 	sjmp	00103$
       000924                       1385 00101$:
                                    1386 ;	usb.c:358: res = HandleStandardRequest();
-      000924 12 0C 83         [24] 1387 	lcall	_HandleStandardRequest
+      000924 12 0C 76         [24] 1387 	lcall	_HandleStandardRequest
       000927 AF 82            [24] 1388 	mov	r7,dpl
                                    1389 ;	usb.c:359: break;
                                    1390 ;	usb.c:360: case 0x20:
       000929 80 10            [24] 1391 	sjmp	00105$
       00092B                       1392 00102$:
                                    1393 ;	usb.c:361: res = HandleClassRequest();
-      00092B 12 0C CA         [24] 1394 	lcall	_HandleClassRequest
+      00092B 12 0C BD         [24] 1394 	lcall	_HandleClassRequest
       00092E AF 82            [24] 1395 	mov	r7,dpl
                                    1396 ;	usb.c:362: break;
                                    1397 ;	usb.c:363: case 0x40:
       000930 80 09            [24] 1398 	sjmp	00105$
       000932                       1399 00103$:
                                    1400 ;	usb.c:364: res = HandleVendorRequest();
-      000932 12 0C F7         [24] 1401 	lcall	_HandleVendorRequest
+      000932 12 0C EA         [24] 1401 	lcall	_HandleVendorRequest
       000935 AF 82            [24] 1402 	mov	r7,dpl
                                    1403 ;	usb.c:365: break;
                                    1404 ;	usb.c:366: default:
@@ -1749,7 +1749,7 @@
       000B02 74 40            [12] 1749 	mov	a,#0x40
       000B04 F0               [24] 1750 	movx	@dptr,a
                                    1751 ;	usb.c:478: if (!HandleCDB())
-      000B05 12 0C FB         [24] 1752 	lcall	_HandleCDB
+      000B05 12 0C EE         [24] 1752 	lcall	_HandleCDB
       000B08 E5 82            [12] 1753 	mov	a,dpl
       000B0A 70 27            [24] 1754 	jnz	00132$
                                    1755 ;	usb.c:480: scsi_status = 1;

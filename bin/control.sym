@@ -250,11 +250,12 @@ Symbol Table
     _GPIO0DIR                                                   =  00FA14 G
     _GPIO0OUT                                                   =  00FA15 G
  16 _GetDescriptor                                                 00001C R
- 16 _GetMaxLUN                                                     000137 R
+ 16 _GetMaxLUN                                                     00012A R
  17 _HIDreportDescriptor                                           000059 R
- 16 _HandleClassRequest                                            00015C GR
- 16 _HandleStandardRequest                                         000115 GR
- 16 _HandleVendorRequest                                           000189 GR
+ 17 _HIDreportDescriptorMouse                                      000098 R
+ 16 _HandleClassRequest                                            00014F GR
+ 16 _HandleStandardRequest                                         000108 GR
+ 16 _HandleVendorRequest                                           00017C GR
     _IE                                                         =  0000A8 G
     _IE0                                                        =  000089 G
     _IE1                                                        =  00008B G
@@ -297,12 +298,12 @@ Symbol Table
     _SendControlResponse                                           ****** GX
  16 _SetAddress                                                    000007 R
  16 _SetConfiguration                                              000101 R
-    _T0                                                         =  0000B4 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 6.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    _T0                                                         =  0000B4 G
     _T1                                                         =  0000B5 G
     _TB8                                                        =  00009B G
     _TCON                                                       =  000088 G
@@ -325,7 +326,7 @@ Symbol Table
     _bRequest                                                      ****** GX
  17 _configDescriptor                                              000012 R
  17 _deviceDescriptor                                              000000 R
- 17 _deviceQualifierDescriptor                                     000098 R
+ 17 _deviceQualifierDescriptor                                     0000CC R
     _wLength                                                       ****** GX
     _wValue                                                        ****** GX
     a                                                           =  0000E0 L
@@ -357,12 +358,12 @@ Symbol Table
     ar7                                                         =  000007 
     b                                                           =  0000F0 L
     b.0                                                         =  0000F0 L
-    b.1                                                         =  0000F1 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    b.1                                                         =  0000F1 L
     b.2                                                         =  0000F2 L
     b.3                                                         =  0000F3 L
     b.4                                                         =  0000F4 L
@@ -417,12 +418,12 @@ Symbol Table
     p0.6                                                        =  000086 L
     p0.7                                                        =  000087 L
     p1                                                          =  000090 L
-    p1.0                                                        =  000090 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    p1.0                                                        =  000090 L
     p1.1                                                        =  000091 L
     p1.2                                                        =  000092 L
     p1.3                                                        =  000093 L
@@ -477,12 +478,12 @@ Symbol Table
     scon                                                        =  000098 L
     scon.0                                                      =  000098 L
     scon.1                                                      =  000099 L
-    scon.2                                                      =  00009A L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    scon.2                                                      =  00009A L
     scon.3                                                      =  00009B L
     scon.4                                                      =  00009C L
     scon.5                                                      =  00009D L
@@ -556,8 +557,8 @@ Area Table
   13 GSINIT5                                    size      0   flags   20
   14 GSINIT                                     size      0   flags   20
   15 GSFINAL                                    size      0   flags   20
-  16 CSEG                                       size    18D   flags   20
-  17 CONST                                      size     A2   flags   20
+  16 CSEG                                       size    180   flags   20
+  17 CONST                                      size     D6   flags   20
   18 XINIT                                      size      0   flags   20
   19 CABS                                       size      0   flags   28
 
