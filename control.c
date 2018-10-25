@@ -77,7 +77,7 @@ static const BYTE HIDreportDescriptorMouse[] =	{
 											//关集合   
 											0xc0,                          //   END_COLLECTION
 											0xc0                           // END_COLLECTION
-										}										
+										};										
 static const BYTE deviceQualifierDescriptor[] = { 0x0A, 0x06, 0x00, 0x02, 0x00, 0x00, 0x00, 0x40, 0x01, 0x00 };
 
 void EP0ACK()
