@@ -380,7 +380,7 @@
       000327 3E               [12]  380 	addc	a,r6
       000328 F5 46            [12]  381 	mov	(__divsint_PARM_2 + 1),a
       00032A 90 09 C4         [24]  382 	mov	dptr,#0x09c4
-      00032D 12 10 06         [24]  383 	lcall	__divsint
+      00032D 12 10 13         [24]  383 	lcall	__divsint
       000330 AE 82            [24]  384 	mov	r6,dpl
       000332 AF 83            [24]  385 	mov	r7,dph
       000334 C3               [12]  386 	clr	c

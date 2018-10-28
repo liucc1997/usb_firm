@@ -76,10 +76,10 @@ C:   0000008A  s_GSFINAL
 C:   0000008D  s_CSEG                          
 C:   000000B8  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   00000FB5  l_CSEG                          
-C:   00001042  s_CONST                         
-C:   000020D6  l_CONST                         
-C:   00003118  s_XINIT                         
+C:   00000FC2  l_CSEG                          
+C:   0000104F  s_CONST                         
+C:   000020C6  l_CONST                         
+C:   00003115  s_XINIT                         
 C:   00006000  s_PSEG                          
 C:   00006000  s_XSEG                          
 C:   00006007  s_XISEG                         
@@ -379,7 +379,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000008D    00000FB5 =        4021. bytes (REL,CON,CODE)
+CSEG                                0000008D    00000FC2 =        4034. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -404,21 +404,21 @@ C:   0000071E  _usb_isr                           usb
 C:   00000885  _ep_isr                            usb
 C:   00000954  _HandleUSBEvents                   usb
 C:   00000B6E  _EP0ACK                            control
-C:   00000C76  _HandleStandardRequest             control
-C:   00000CBD  _HandleClassRequest                control
-C:   00000CEA  _HandleVendorRequest               control
-C:   00000CEE  _HandleCDB                         scsi
-C:   00000FA3  _memset                            _memset
-C:   00000FC2  __gptrput                          _gptrput
-C:   00000FDD  __divuint                          _divuint
-C:   00001006  __divsint                          _divsint
-C:   0000103E  __sdcc_external_startup            _startup
+C:   00000C83  _HandleStandardRequest             control
+C:   00000CCA  _HandleClassRequest                control
+C:   00000CF7  _HandleVendorRequest               control
+C:   00000CFB  _HandleCDB                         scsi
+C:   00000FB0  _memset                            _memset
+C:   00000FCF  __gptrput                          _gptrput
+C:   00000FEA  __divuint                          _divuint
+C:   00001013  __divsint                          _divsint
+C:   0000104B  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00001042    000020D6 =        8406. bytes (REL,CON,CODE)
+CONST                               0000104F    000020C6 =        8390. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

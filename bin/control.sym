@@ -250,12 +250,12 @@ Symbol Table
     _GPIO0DIR                                                   =  00FA14 G
     _GPIO0OUT                                                   =  00FA15 G
  16 _GetDescriptor                                                 00001C R
- 16 _GetMaxLUN                                                     00012A R
- 17 _HIDreportDescriptor                                           000059 R
- 17 _HIDreportDescriptorMouse                                      000098 R
- 16 _HandleClassRequest                                            00014F GR
- 16 _HandleStandardRequest                                         000108 GR
- 16 _HandleVendorRequest                                           00017C GR
+ 16 _GetMaxLUN                                                     000137 R
+ 17 _HIDreportDescriptor                                           000049 R
+ 17 _HIDreportDescriptorMouse                                      000088 R
+ 16 _HandleClassRequest                                            00015C GR
+ 16 _HandleStandardRequest                                         000115 GR
+ 16 _HandleVendorRequest                                           000189 GR
     _IE                                                         =  0000A8 G
     _IE0                                                        =  000089 G
     _IE1                                                        =  00008B G
@@ -326,7 +326,7 @@ Symbol Table
     _bRequest                                                      ****** GX
  17 _configDescriptor                                              000012 R
  17 _deviceDescriptor                                              000000 R
- 17 _deviceQualifierDescriptor                                     0000CC R
+ 17 _deviceQualifierDescriptor                                     0000BC R
     _wLength                                                       ****** GX
     _wValue                                                        ****** GX
     a                                                           =  0000E0 L
@@ -557,8 +557,8 @@ Area Table
   13 GSINIT5                                    size      0   flags   20
   14 GSINIT                                     size      0   flags   20
   15 GSFINAL                                    size      0   flags   20
-  16 CSEG                                       size    180   flags   20
-  17 CONST                                      size     D6   flags   20
+  16 CSEG                                       size    18D   flags   20
+  17 CONST                                      size     C6   flags   20
   18 XINIT                                      size      0   flags   20
   19 CABS                                       size      0   flags   28
 
