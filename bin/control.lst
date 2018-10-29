@@ -301,7 +301,7 @@
                                     301 ;------------------------------------------------------------
                                     302 ;Allocation info for local variables in function 'EP0ACK'
                                     303 ;------------------------------------------------------------
-                                    304 ;	control.c:80: void EP0ACK()
+                                    304 ;	control.c:83: void EP0ACK()
                                     305 ;	-----------------------------------------
                                     306 ;	 function EP0ACK
                                     307 ;	-----------------------------------------
@@ -314,586 +314,708 @@
                            000002   314 	ar2 = 0x02
                            000001   315 	ar1 = 0x01
                            000000   316 	ar0 = 0x00
-                                    317 ;	control.c:82: EP0CS = bmEP0ACK;
+                                    317 ;	control.c:85: EP0CS = bmEP0ACK;
       000000 90 F0 48         [24]  318 	mov	dptr,#_EP0CS
       000003 74 01            [12]  319 	mov	a,#0x01
       000005 F0               [24]  320 	movx	@dptr,a
-                                    321 ;	control.c:83: }
+                                    321 ;	control.c:86: }
       000006 22               [24]  322 	ret
                                     323 ;------------------------------------------------------------
                                     324 ;Allocation info for local variables in function 'SetAddress'
                                     325 ;------------------------------------------------------------
                                     326 ;ret                       Allocated to registers r7 
                                     327 ;------------------------------------------------------------
-                                    328 ;	control.c:85: static BYTE SetAddress()
+                                    328 ;	control.c:88: static BYTE SetAddress()
                                     329 ;	-----------------------------------------
                                     330 ;	 function SetAddress
                                     331 ;	-----------------------------------------
       000007                        332 _SetAddress:
-                                    333 ;	control.c:87: BYTE ret = FALSE;
+                                    333 ;	control.c:90: BYTE ret = FALSE;
       000007 7F 00            [12]  334 	mov	r7,#0x00
-                                    335 ;	control.c:89: if (wValue < 0x7F)
+                                    335 ;	control.c:92: if (wValue < 0x7F)
       000009 C3               [12]  336 	clr	c
       00000A E5*00            [12]  337 	mov	a,_wValue
       00000C 94 7F            [12]  338 	subb	a,#0x7f
       00000E E5*01            [12]  339 	mov	a,(_wValue + 1)
       000010 94 00            [12]  340 	subb	a,#0x00
       000012 50 05            [24]  341 	jnc	00102$
-                                    342 ;	control.c:91: EP0ACK();
+                                    342 ;	control.c:94: EP0ACK();
       000014 12r00r00         [24]  343 	lcall	_EP0ACK
-                                    344 ;	control.c:92: ret = TRUE;
+                                    344 ;	control.c:95: ret = TRUE;
       000017 7F 01            [12]  345 	mov	r7,#0x01
       000019                        346 00102$:
-                                    347 ;	control.c:95: return ret;
+                                    347 ;	control.c:98: return ret;
       000019 8F 82            [24]  348 	mov	dpl,r7
-                                    349 ;	control.c:96: }
+                                    349 ;	control.c:99: }
       00001B 22               [24]  350 	ret
                                     351 ;------------------------------------------------------------
                                     352 ;Allocation info for local variables in function 'GetDescriptor'
                                     353 ;------------------------------------------------------------
                                     354 ;type                      Allocated to registers r7 
-                                    355 ;i                         Allocated to registers r7 
-                                    356 ;total                     Allocated to registers r5 
-                                    357 ;ret                       Allocated to registers r6 
-                                    358 ;------------------------------------------------------------
-                                    359 ;	control.c:98: static BYTE GetDescriptor()
-                                    360 ;	-----------------------------------------
-                                    361 ;	 function GetDescriptor
-                                    362 ;	-----------------------------------------
-      00001C                        363 _GetDescriptor:
-                                    364 ;	control.c:100: BYTE type = (wValue >> 8) & 0xFF;
-      00001C AF*01            [24]  365 	mov	r7,(_wValue + 1)
-                                    366 ;	control.c:102: BYTE ret = FALSE;
-      00001E 7E 00            [12]  367 	mov	r6,#0x00
-                                    368 ;	control.c:104: switch (type)
-      000020 BF 01 02         [24]  369 	cjne	r7,#0x01,00198$
-      000023 80 14            [24]  370 	sjmp	00134$
-      000025                        371 00198$:
-      000025 BF 02 02         [24]  372 	cjne	r7,#0x02,00199$
-      000028 80 40            [24]  373 	sjmp	00103$
-      00002A                        374 00199$:
-      00002A BF 06 03         [24]  375 	cjne	r7,#0x06,00200$
-      00002D 02r00rA0         [24]  376 	ljmp	00140$
-      000030                        377 00200$:
-      000030 BF 22 03         [24]  378 	cjne	r7,#0x22,00201$
-      000033 02r00rD0         [24]  379 	ljmp	00143$
-      000036                        380 00201$:
-      000036 02r00rFE         [24]  381 	ljmp	00110$
-                                    382 ;	control.c:108: for (i = 0; i < 0x12; i++)
-      000039                        383 00134$:
-      000039 7F 00            [12]  384 	mov	r7,#0x00
-      00003B                        385 00111$:
-                                    386 ;	control.c:110: EP0.fifo = deviceDescriptor[i];
-      00003B EF               [12]  387 	mov	a,r7
-      00003C 90r00r00         [24]  388 	mov	dptr,#_deviceDescriptor
-      00003F 93               [24]  389 	movc	a,@a+dptr
-      000040 90 F1 DC         [24]  390 	mov	dptr,#(_EP0 + 0x001c)
-      000043 F0               [24]  391 	movx	@dptr,a
-                                    392 ;	control.c:108: for (i = 0; i < 0x12; i++)
-      000044 0F               [12]  393 	inc	r7
-      000045 BF 12 00         [24]  394 	cjne	r7,#0x12,00202$
-      000048                        395 00202$:
-                                    396 ;	control.c:113: SendControlResponse(wLength < 0x12 ? wLength : 0x12);
-      000048 40 F1            [24]  397 	jc	00111$
-      00004A E5*00            [12]  398 	mov	a,_wLength
-      00004C 94 12            [12]  399 	subb	a,#0x12
-      00004E E5*01            [12]  400 	mov	a,(_wLength + 1)
-      000050 94 00            [12]  401 	subb	a,#0x00
-      000052 50 06            [24]  402 	jnc	00122$
-      000054 AD*00            [24]  403 	mov	r5,_wLength
-      000056 AF*01            [24]  404 	mov	r7,(_wLength + 1)
-      000058 80 04            [24]  405 	sjmp	00123$
-      00005A                        406 00122$:
-      00005A 7D 12            [12]  407 	mov	r5,#0x12
-      00005C 7F 00            [12]  408 	mov	r7,#0x00
-      00005E                        409 00123$:
-      00005E 8D 82            [24]  410 	mov	dpl,r5
-      000060 8F 83            [24]  411 	mov	dph,r7
-      000062 12r00r00         [24]  412 	lcall	_SendControlResponse
-                                    413 ;	control.c:114: ret = TRUE;
-      000065 7E 01            [12]  414 	mov	r6,#0x01
-                                    415 ;	control.c:116: break;
-      000067 02r00rFE         [24]  416 	ljmp	00110$
-                                    417 ;	control.c:118: case 0x02:
-      00006A                        418 00103$:
-                                    419 ;	control.c:120: total = wLength < sizeof(configDescriptor) ? wLength : sizeof(configDescriptor);
-      00006A C3               [12]  420 	clr	c
-      00006B E5*00            [12]  421 	mov	a,_wLength
-      00006D 94 37            [12]  422 	subb	a,#0x37
-      00006F E5*01            [12]  423 	mov	a,(_wLength + 1)
-      000071 94 00            [12]  424 	subb	a,#0x00
-      000073 50 06            [24]  425 	jnc	00124$
-      000075 AD*00            [24]  426 	mov	r5,_wLength
-      000077 AF*01            [24]  427 	mov	r7,(_wLength + 1)
-      000079 80 04            [24]  428 	sjmp	00125$
-      00007B                        429 00124$:
-      00007B 7D 37            [12]  430 	mov	r5,#0x37
-      00007D 7F 00            [12]  431 	mov	r7,#0x00
-      00007F                        432 00125$:
-                                    433 ;	control.c:121: for (i = 0; i < total; i++)
-      00007F 7F 00            [12]  434 	mov	r7,#0x00
-      000081                        435 00114$:
-      000081 C3               [12]  436 	clr	c
-      000082 EF               [12]  437 	mov	a,r7
-      000083 9D               [12]  438 	subb	a,r5
-      000084 50 0D            [24]  439 	jnc	00104$
-                                    440 ;	control.c:123: EP0.fifo = configDescriptor[i];
-      000086 EF               [12]  441 	mov	a,r7
-      000087 90r00r12         [24]  442 	mov	dptr,#_configDescriptor
-      00008A 93               [24]  443 	movc	a,@a+dptr
-      00008B FC               [12]  444 	mov	r4,a
-      00008C 90 F1 DC         [24]  445 	mov	dptr,#(_EP0 + 0x001c)
-      00008F F0               [24]  446 	movx	@dptr,a
-                                    447 ;	control.c:121: for (i = 0; i < total; i++)
-      000090 0F               [12]  448 	inc	r7
-      000091 80 EE            [24]  449 	sjmp	00114$
-      000093                        450 00104$:
-                                    451 ;	control.c:126: SendControlResponse(total);
-      000093 7F 00            [12]  452 	mov	r7,#0x00
-      000095 8D 82            [24]  453 	mov	dpl,r5
-      000097 8F 83            [24]  454 	mov	dph,r7
-      000099 12r00r00         [24]  455 	lcall	_SendControlResponse
-                                    456 ;	control.c:127: ret = TRUE;
-      00009C 7E 01            [12]  457 	mov	r6,#0x01
-                                    458 ;	control.c:129: break;
-                                    459 ;	control.c:133: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
-      00009E 80 5E            [24]  460 	sjmp	00110$
-      0000A0                        461 00140$:
-      0000A0 7F 00            [12]  462 	mov	r7,#0x00
-      0000A2                        463 00116$:
-                                    464 ;	control.c:135: EP0.fifo = deviceQualifierDescriptor[i];
-      0000A2 EF               [12]  465 	mov	a,r7
-      0000A3 90r00rBC         [24]  466 	mov	dptr,#_deviceQualifierDescriptor
-      0000A6 93               [24]  467 	movc	a,@a+dptr
-      0000A7 90 F1 DC         [24]  468 	mov	dptr,#(_EP0 + 0x001c)
-      0000AA F0               [24]  469 	movx	@dptr,a
-                                    470 ;	control.c:133: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
-      0000AB 0F               [12]  471 	inc	r7
-      0000AC BF 0A 00         [24]  472 	cjne	r7,#0x0a,00207$
-      0000AF                        473 00207$:
-                                    474 ;	control.c:138: SendControlResponse(wLength < sizeof(deviceQualifierDescriptor) ? wLength : sizeof(deviceQualifierDescriptor));
-      0000AF 40 F1            [24]  475 	jc	00116$
-      0000B1 E5*00            [12]  476 	mov	a,_wLength
-      0000B3 94 0A            [12]  477 	subb	a,#0x0a
-      0000B5 E5*01            [12]  478 	mov	a,(_wLength + 1)
-      0000B7 94 00            [12]  479 	subb	a,#0x00
-      0000B9 50 06            [24]  480 	jnc	00126$
-      0000BB AD*00            [24]  481 	mov	r5,_wLength
-      0000BD AF*01            [24]  482 	mov	r7,(_wLength + 1)
-      0000BF 80 04            [24]  483 	sjmp	00127$
-      0000C1                        484 00126$:
-      0000C1 7D 0A            [12]  485 	mov	r5,#0x0a
-      0000C3 7F 00            [12]  486 	mov	r7,#0x00
-      0000C5                        487 00127$:
-      0000C5 8D 82            [24]  488 	mov	dpl,r5
-      0000C7 8F 83            [24]  489 	mov	dph,r7
-      0000C9 12r00r00         [24]  490 	lcall	_SendControlResponse
-                                    491 ;	control.c:139: ret = TRUE;
-      0000CC 7E 01            [12]  492 	mov	r6,#0x01
-                                    493 ;	control.c:141: break;
-                                    494 ;	control.c:145: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
-      0000CE 80 2E            [24]  495 	sjmp	00110$
-      0000D0                        496 00143$:
-      0000D0 7F 00            [12]  497 	mov	r7,#0x00
-      0000D2                        498 00118$:
-                                    499 ;	control.c:147: EP0.fifo = HIDreportDescriptor[i];
-      0000D2 EF               [12]  500 	mov	a,r7
-      0000D3 90r00r49         [24]  501 	mov	dptr,#_HIDreportDescriptor
-      0000D6 93               [24]  502 	movc	a,@a+dptr
-      0000D7 90 F1 DC         [24]  503 	mov	dptr,#(_EP0 + 0x001c)
-      0000DA F0               [24]  504 	movx	@dptr,a
-                                    505 ;	control.c:145: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
-      0000DB 0F               [12]  506 	inc	r7
-      0000DC BF 3F 00         [24]  507 	cjne	r7,#0x3f,00210$
-      0000DF                        508 00210$:
-                                    509 ;	control.c:150: SendControlResponse(wLength < sizeof(HIDreportDescriptor) ? wLength : sizeof(HIDreportDescriptor));
-      0000DF 40 F1            [24]  510 	jc	00118$
-      0000E1 E5*00            [12]  511 	mov	a,_wLength
-      0000E3 94 3F            [12]  512 	subb	a,#0x3f
-      0000E5 E5*01            [12]  513 	mov	a,(_wLength + 1)
-      0000E7 94 00            [12]  514 	subb	a,#0x00
-      0000E9 50 06            [24]  515 	jnc	00128$
-      0000EB AD*00            [24]  516 	mov	r5,_wLength
-      0000ED AF*01            [24]  517 	mov	r7,(_wLength + 1)
-      0000EF 80 04            [24]  518 	sjmp	00129$
-      0000F1                        519 00128$:
-      0000F1 7D 3F            [12]  520 	mov	r5,#0x3f
-      0000F3 7F 00            [12]  521 	mov	r7,#0x00
-      0000F5                        522 00129$:
-      0000F5 8D 82            [24]  523 	mov	dpl,r5
-      0000F7 8F 83            [24]  524 	mov	dph,r7
-      0000F9 12r00r00         [24]  525 	lcall	_SendControlResponse
-                                    526 ;	control.c:151: ret = TRUE;
-      0000FC 7E 01            [12]  527 	mov	r6,#0x01
-                                    528 ;	control.c:159: }
-      0000FE                        529 00110$:
-                                    530 ;	control.c:161: return ret;
-      0000FE 8E 82            [24]  531 	mov	dpl,r6
-                                    532 ;	control.c:162: }
-      000100 22               [24]  533 	ret
-                                    534 ;------------------------------------------------------------
-                                    535 ;Allocation info for local variables in function 'SetConfiguration'
-                                    536 ;------------------------------------------------------------
-                                    537 ;ret                       Allocated to registers r7 
-                                    538 ;------------------------------------------------------------
-                                    539 ;	control.c:164: static BYTE SetConfiguration()
-                                    540 ;	-----------------------------------------
-                                    541 ;	 function SetConfiguration
-                                    542 ;	-----------------------------------------
-      000101                        543 _SetConfiguration:
-                                    544 ;	control.c:166: BYTE ret = FALSE;
-      000101 7F 00            [12]  545 	mov	r7,#0x00
-                                    546 ;	control.c:168: if (wValue <= 1)
-      000103 C3               [12]  547 	clr	c
-      000104 74 01            [12]  548 	mov	a,#0x01
-      000106 95*00            [12]  549 	subb	a,_wValue
-      000108 E4               [12]  550 	clr	a
-      000109 95*01            [12]  551 	subb	a,(_wValue + 1)
-      00010B 40 05            [24]  552 	jc	00102$
-                                    553 ;	control.c:170: EP0ACK();
-      00010D 12r00r00         [24]  554 	lcall	_EP0ACK
-                                    555 ;	control.c:171: ret = TRUE;
-      000110 7F 01            [12]  556 	mov	r7,#0x01
-      000112                        557 00102$:
-                                    558 ;	control.c:174: return ret;
-      000112 8F 82            [24]  559 	mov	dpl,r7
-                                    560 ;	control.c:175: }
-      000114 22               [24]  561 	ret
-                                    562 ;------------------------------------------------------------
-                                    563 ;Allocation info for local variables in function 'HandleStandardRequest'
-                                    564 ;------------------------------------------------------------
-                                    565 ;	control.c:177: BYTE HandleStandardRequest()
-                                    566 ;	-----------------------------------------
-                                    567 ;	 function HandleStandardRequest
-                                    568 ;	-----------------------------------------
-      000115                        569 _HandleStandardRequest:
-                                    570 ;	control.c:179: switch(bRequest)
-      000115 74 05            [12]  571 	mov	a,#0x05
-      000117 B5*00 02         [24]  572 	cjne	a,_bRequest,00120$
-      00011A 80 0E            [24]  573 	sjmp	00101$
-      00011C                        574 00120$:
-      00011C 74 06            [12]  575 	mov	a,#0x06
-      00011E B5*00 02         [24]  576 	cjne	a,_bRequest,00121$
-      000121 80 0A            [24]  577 	sjmp	00102$
-      000123                        578 00121$:
-      000123 74 09            [12]  579 	mov	a,#0x09
-                                    580 ;	control.c:181: case 0x05:
-      000125 B5*00 0B         [24]  581 	cjne	a,_bRequest,00104$
-      000128 80 06            [24]  582 	sjmp	00103$
-      00012A                        583 00101$:
-                                    584 ;	control.c:183: return SetAddress();
-                                    585 ;	control.c:185: case 0x06:
-      00012A 02r00r07         [24]  586 	ljmp	_SetAddress
-      00012D                        587 00102$:
-                                    588 ;	control.c:187: return GetDescriptor();
-                                    589 ;	control.c:189: case 0x09:
-      00012D 02r00r1C         [24]  590 	ljmp	_GetDescriptor
-      000130                        591 00103$:
-                                    592 ;	control.c:191: return SetConfiguration();
-                                    593 ;	control.c:193: default:
-      000130 02r01r01         [24]  594 	ljmp	_SetConfiguration
-      000133                        595 00104$:
-                                    596 ;	control.c:195: return FALSE;
-      000133 75 82 00         [24]  597 	mov	dpl,#0x00
-                                    598 ;	control.c:197: }
-                                    599 ;	control.c:198: }
-      000136 22               [24]  600 	ret
-                                    601 ;------------------------------------------------------------
-                                    602 ;Allocation info for local variables in function 'GetMaxLUN'
-                                    603 ;------------------------------------------------------------
-                                    604 ;	control.c:200: static BYTE GetMaxLUN()
-                                    605 ;	-----------------------------------------
-                                    606 ;	 function GetMaxLUN
-                                    607 ;	-----------------------------------------
-      000137                        608 _GetMaxLUN:
-                                    609 ;	control.c:202: EP0.fifo = 0x00;
-      000137 90 F1 DC         [24]  610 	mov	dptr,#(_EP0 + 0x001c)
-      00013A E4               [12]  611 	clr	a
-      00013B F0               [24]  612 	movx	@dptr,a
-                                    613 ;	control.c:203: SendControlResponse(wLength < 0x01 ? wLength : 0x01);
-      00013C C3               [12]  614 	clr	c
-      00013D E5*00            [12]  615 	mov	a,_wLength
-      00013F 94 01            [12]  616 	subb	a,#0x01
-      000141 E5*01            [12]  617 	mov	a,(_wLength + 1)
-      000143 94 00            [12]  618 	subb	a,#0x00
-      000145 50 06            [24]  619 	jnc	00103$
-      000147 AE*00            [24]  620 	mov	r6,_wLength
-      000149 AF*01            [24]  621 	mov	r7,(_wLength + 1)
-      00014B 80 04            [24]  622 	sjmp	00104$
-      00014D                        623 00103$:
-      00014D 7E 01            [12]  624 	mov	r6,#0x01
-      00014F 7F 00            [12]  625 	mov	r7,#0x00
-      000151                        626 00104$:
-      000151 8E 82            [24]  627 	mov	dpl,r6
-      000153 8F 83            [24]  628 	mov	dph,r7
-      000155 12r00r00         [24]  629 	lcall	_SendControlResponse
-                                    630 ;	control.c:205: return TRUE;
-      000158 75 82 01         [24]  631 	mov	dpl,#0x01
-                                    632 ;	control.c:206: }
-      00015B 22               [24]  633 	ret
-                                    634 ;------------------------------------------------------------
-                                    635 ;Allocation info for local variables in function 'HandleClassRequest'
-                                    636 ;------------------------------------------------------------
-                                    637 ;	control.c:208: BYTE HandleClassRequest()
-                                    638 ;	-----------------------------------------
-                                    639 ;	 function HandleClassRequest
-                                    640 ;	-----------------------------------------
-      00015C                        641 _HandleClassRequest:
-                                    642 ;	control.c:210: switch(bRequest)
-      00015C 74 09            [12]  643 	mov	a,#0x09
-      00015E B5*00 02         [24]  644 	cjne	a,_bRequest,00120$
-      000161 80 0E            [24]  645 	sjmp	00101$
-      000163                        646 00120$:
-      000163 74 0A            [12]  647 	mov	a,#0x0a
-      000165 B5*00 02         [24]  648 	cjne	a,_bRequest,00121$
-      000168 80 11            [24]  649 	sjmp	00102$
-      00016A                        650 00121$:
-      00016A 74 FE            [12]  651 	mov	a,#0xfe
-                                    652 ;	control.c:212: case 0x09:
-      00016C B5*00 16         [24]  653 	cjne	a,_bRequest,00104$
-      00016F 80 11            [24]  654 	sjmp	00103$
-      000171                        655 00101$:
-                                    656 ;	control.c:214: EP0CS = 0x05;
-      000171 90 F0 48         [24]  657 	mov	dptr,#_EP0CS
-      000174 74 05            [12]  658 	mov	a,#0x05
-      000176 F0               [24]  659 	movx	@dptr,a
-                                    660 ;	control.c:215: return TRUE;
-      000177 75 82 01         [24]  661 	mov	dpl,#0x01
-                                    662 ;	control.c:217: case 0x0A:
-      00017A 22               [24]  663 	ret
-      00017B                        664 00102$:
-                                    665 ;	control.c:219: EP0ACK();
-      00017B 12r00r00         [24]  666 	lcall	_EP0ACK
-                                    667 ;	control.c:220: return TRUE;
-      00017E 75 82 01         [24]  668 	mov	dpl,#0x01
-                                    669 ;	control.c:222: case 0xFE:
-      000181 22               [24]  670 	ret
-      000182                        671 00103$:
-                                    672 ;	control.c:224: return GetMaxLUN();
-                                    673 ;	control.c:226: default:
-      000182 02r01r37         [24]  674 	ljmp	_GetMaxLUN
-      000185                        675 00104$:
-                                    676 ;	control.c:228: return FALSE;
-      000185 75 82 00         [24]  677 	mov	dpl,#0x00
-                                    678 ;	control.c:230: }
-                                    679 ;	control.c:231: }
-      000188 22               [24]  680 	ret
-                                    681 ;------------------------------------------------------------
-                                    682 ;Allocation info for local variables in function 'HandleVendorRequest'
-                                    683 ;------------------------------------------------------------
-                                    684 ;	control.c:233: BYTE HandleVendorRequest()
-                                    685 ;	-----------------------------------------
-                                    686 ;	 function HandleVendorRequest
-                                    687 ;	-----------------------------------------
-      000189                        688 _HandleVendorRequest:
-                                    689 ;	control.c:235: return FALSE;
-      000189 75 82 00         [24]  690 	mov	dpl,#0x00
-                                    691 ;	control.c:236: }
-      00018C 22               [24]  692 	ret
-                                    693 	.area CSEG    (CODE)
-                                    694 	.area CONST   (CODE)
-      000000                        695 _deviceDescriptor:
-      000000 12                     696 	.db #0x12	; 18
-      000001 01                     697 	.db #0x01	; 1
-      000002 00                     698 	.db #0x00	; 0
-      000003 02                     699 	.db #0x02	; 2
-      000004 03                     700 	.db #0x03	; 3
-      000005 01                     701 	.db #0x01	; 1
-      000006 00                     702 	.db #0x00	; 0
-      000007 40                     703 	.db #0x40	; 64
-      000008 B4                     704 	.db #0xb4	; 180
-      000009 04                     705 	.db #0x04	; 4
-      00000A 05                     706 	.db #0x05	; 5
-      00000B 66                     707 	.db #0x66	; 102	'f'
-      00000C 00                     708 	.db #0x00	; 0
-      00000D 00                     709 	.db #0x00	; 0
-      00000E 00                     710 	.db #0x00	; 0
-      00000F 00                     711 	.db #0x00	; 0
-      000010 00                     712 	.db #0x00	; 0
-      000011 01                     713 	.db #0x01	; 1
-      000012                        714 _configDescriptor:
-      000012 09                     715 	.db #0x09	; 9
-      000013 02                     716 	.db #0x02	; 2
-      000014 37                     717 	.db #0x37	; 55	'7'
-      000015 00                     718 	.db #0x00	; 0
-      000016 01                     719 	.db #0x01	; 1
-      000017 01                     720 	.db #0x01	; 1
-      000018 00                     721 	.db #0x00	; 0
-      000019 80                     722 	.db #0x80	; 128
-      00001A 4B                     723 	.db #0x4b	; 75	'K'
-      00001B 09                     724 	.db #0x09	; 9
-      00001C 04                     725 	.db #0x04	; 4
-      00001D 00                     726 	.db #0x00	; 0
-      00001E 00                     727 	.db #0x00	; 0
-      00001F 04                     728 	.db #0x04	; 4
-      000020 03                     729 	.db #0x03	; 3
-      000021 01                     730 	.db #0x01	; 1
-      000022 01                     731 	.db #0x01	; 1
-      000023 00                     732 	.db #0x00	; 0
-      000024 09                     733 	.db #0x09	; 9
-      000025 21                     734 	.db #0x21	; 33
-      000026 01                     735 	.db #0x01	; 1
-      000027 01                     736 	.db #0x01	; 1
-      000028 00                     737 	.db #0x00	; 0
-      000029 01                     738 	.db #0x01	; 1
-      00002A 22                     739 	.db #0x22	; 34
-      00002B 3F                     740 	.db #0x3f	; 63
-      00002C 00                     741 	.db #0x00	; 0
-      00002D 07                     742 	.db #0x07	; 7
-      00002E 05                     743 	.db #0x05	; 5
-      00002F 81                     744 	.db #0x81	; 129
-      000030 00                     745 	.db #0x00	; 0
-      000031 08                     746 	.db #0x08	; 8
-      000032 00                     747 	.db #0x00	; 0
-      000033 00                     748 	.db #0x00	; 0
-      000034 07                     749 	.db #0x07	; 7
-      000035 05                     750 	.db #0x05	; 5
-      000036 02                     751 	.db #0x02	; 2
-      000037 00                     752 	.db #0x00	; 0
-      000038 08                     753 	.db #0x08	; 8
-      000039 00                     754 	.db #0x00	; 0
-      00003A 00                     755 	.db #0x00	; 0
-      00003B 07                     756 	.db #0x07	; 7
-      00003C 05                     757 	.db #0x05	; 5
-      00003D 83                     758 	.db #0x83	; 131
-      00003E 03                     759 	.db #0x03	; 3
-      00003F 08                     760 	.db #0x08	; 8
-      000040 00                     761 	.db #0x00	; 0
-      000041 00                     762 	.db #0x00	; 0
-      000042 07                     763 	.db #0x07	; 7
-      000043 05                     764 	.db #0x05	; 5
-      000044 04                     765 	.db #0x04	; 4
-      000045 03                     766 	.db #0x03	; 3
-      000046 08                     767 	.db #0x08	; 8
-      000047 00                     768 	.db #0x00	; 0
-      000048 01                     769 	.db #0x01	; 1
-      000049                        770 _HIDreportDescriptor:
-      000049 05                     771 	.db #0x05	; 5
-      00004A 01                     772 	.db #0x01	; 1
-      00004B 09                     773 	.db #0x09	; 9
-      00004C 06                     774 	.db #0x06	; 6
-      00004D A1                     775 	.db #0xa1	; 161
-      00004E 01                     776 	.db #0x01	; 1
-      00004F 05                     777 	.db #0x05	; 5
-      000050 07                     778 	.db #0x07	; 7
-      000051 19                     779 	.db #0x19	; 25
-      000052 E0                     780 	.db #0xe0	; 224
-      000053 29                     781 	.db #0x29	; 41
-      000054 E7                     782 	.db #0xe7	; 231
-      000055 15                     783 	.db #0x15	; 21
-      000056 00                     784 	.db #0x00	; 0
-      000057 25                     785 	.db #0x25	; 37
-      000058 01                     786 	.db #0x01	; 1
-      000059 75                     787 	.db #0x75	; 117	'u'
-      00005A 01                     788 	.db #0x01	; 1
-      00005B 95                     789 	.db #0x95	; 149
-      00005C 08                     790 	.db #0x08	; 8
-      00005D 81                     791 	.db #0x81	; 129
-      00005E 02                     792 	.db #0x02	; 2
-      00005F 95                     793 	.db #0x95	; 149
-      000060 01                     794 	.db #0x01	; 1
-      000061 75                     795 	.db #0x75	; 117	'u'
-      000062 08                     796 	.db #0x08	; 8
-      000063 81                     797 	.db #0x81	; 129
-      000064 01                     798 	.db #0x01	; 1
-      000065 95                     799 	.db #0x95	; 149
-      000066 05                     800 	.db #0x05	; 5
-      000067 75                     801 	.db #0x75	; 117	'u'
-      000068 01                     802 	.db #0x01	; 1
-      000069 05                     803 	.db #0x05	; 5
-      00006A 08                     804 	.db #0x08	; 8
-      00006B 19                     805 	.db #0x19	; 25
-      00006C 01                     806 	.db #0x01	; 1
-      00006D 29                     807 	.db #0x29	; 41
-      00006E 05                     808 	.db #0x05	; 5
-      00006F 91                     809 	.db #0x91	; 145
-      000070 02                     810 	.db #0x02	; 2
-      000071 95                     811 	.db #0x95	; 149
-      000072 01                     812 	.db #0x01	; 1
-      000073 75                     813 	.db #0x75	; 117	'u'
-      000074 03                     814 	.db #0x03	; 3
-      000075 91                     815 	.db #0x91	; 145
-      000076 01                     816 	.db #0x01	; 1
-      000077 95                     817 	.db #0x95	; 149
-      000078 06                     818 	.db #0x06	; 6
-      000079 75                     819 	.db #0x75	; 117	'u'
-      00007A 08                     820 	.db #0x08	; 8
-      00007B 15                     821 	.db #0x15	; 21
-      00007C 00                     822 	.db #0x00	; 0
-      00007D 25                     823 	.db #0x25	; 37
-      00007E 65                     824 	.db #0x65	; 101	'e'
-      00007F 05                     825 	.db #0x05	; 5
-      000080 07                     826 	.db #0x07	; 7
-      000081 19                     827 	.db #0x19	; 25
-      000082 00                     828 	.db #0x00	; 0
-      000083 29                     829 	.db #0x29	; 41
-      000084 65                     830 	.db #0x65	; 101	'e'
-      000085 81                     831 	.db #0x81	; 129
-      000086 00                     832 	.db #0x00	; 0
-      000087 C0                     833 	.db #0xc0	; 192
-      000088                        834 _HIDreportDescriptorMouse:
-      000088 05                     835 	.db #0x05	; 5
-      000089 01                     836 	.db #0x01	; 1
-      00008A 09                     837 	.db #0x09	; 9
-      00008B 02                     838 	.db #0x02	; 2
-      00008C A1                     839 	.db #0xa1	; 161
-      00008D 01                     840 	.db #0x01	; 1
-      00008E 09                     841 	.db #0x09	; 9
-      00008F 01                     842 	.db #0x01	; 1
-      000090 A1                     843 	.db #0xa1	; 161
-      000091 00                     844 	.db #0x00	; 0
-      000092 05                     845 	.db #0x05	; 5
-      000093 09                     846 	.db #0x09	; 9
-      000094 19                     847 	.db #0x19	; 25
-      000095 01                     848 	.db #0x01	; 1
-      000096 29                     849 	.db #0x29	; 41
-      000097 03                     850 	.db #0x03	; 3
-      000098 15                     851 	.db #0x15	; 21
-      000099 00                     852 	.db #0x00	; 0
-      00009A 25                     853 	.db #0x25	; 37
-      00009B 01                     854 	.db #0x01	; 1
-      00009C 95                     855 	.db #0x95	; 149
-      00009D 03                     856 	.db #0x03	; 3
-      00009E 75                     857 	.db #0x75	; 117	'u'
-      00009F 01                     858 	.db #0x01	; 1
-      0000A0 81                     859 	.db #0x81	; 129
-      0000A1 02                     860 	.db #0x02	; 2
-      0000A2 95                     861 	.db #0x95	; 149
-      0000A3 01                     862 	.db #0x01	; 1
-      0000A4 75                     863 	.db #0x75	; 117	'u'
-      0000A5 05                     864 	.db #0x05	; 5
-      0000A6 81                     865 	.db #0x81	; 129
-      0000A7 03                     866 	.db #0x03	; 3
-      0000A8 05                     867 	.db #0x05	; 5
-      0000A9 01                     868 	.db #0x01	; 1
-      0000AA 09                     869 	.db #0x09	; 9
-      0000AB 30                     870 	.db #0x30	; 48	'0'
-      0000AC 09                     871 	.db #0x09	; 9
-      0000AD 31                     872 	.db #0x31	; 49	'1'
-      0000AE 09                     873 	.db #0x09	; 9
-      0000AF 38                     874 	.db #0x38	; 56	'8'
-      0000B0 15                     875 	.db #0x15	; 21
-      0000B1 81                     876 	.db #0x81	; 129
-      0000B2 25                     877 	.db #0x25	; 37
-      0000B3 7F                     878 	.db #0x7f	; 127
-      0000B4 75                     879 	.db #0x75	; 117	'u'
-      0000B5 08                     880 	.db #0x08	; 8
-      0000B6 95                     881 	.db #0x95	; 149
-      0000B7 03                     882 	.db #0x03	; 3
-      0000B8 81                     883 	.db #0x81	; 129
-      0000B9 06                     884 	.db #0x06	; 6
-      0000BA C0                     885 	.db #0xc0	; 192
-      0000BB C0                     886 	.db #0xc0	; 192
-      0000BC                        887 _deviceQualifierDescriptor:
-      0000BC 0A                     888 	.db #0x0a	; 10
-      0000BD 06                     889 	.db #0x06	; 6
-      0000BE 00                     890 	.db #0x00	; 0
-      0000BF 02                     891 	.db #0x02	; 2
-      0000C0 00                     892 	.db #0x00	; 0
-      0000C1 00                     893 	.db #0x00	; 0
-      0000C2 00                     894 	.db #0x00	; 0
-      0000C3 40                     895 	.db #0x40	; 64
-      0000C4 01                     896 	.db #0x01	; 1
-      0000C5 00                     897 	.db #0x00	; 0
-                                    898 	.area XINIT   (CODE)
-                                    899 	.area CABS    (ABS,CODE)
+                                    355 ;typeIndex                 Allocated to registers r6 
+                                    356 ;i                         Allocated to registers r7 
+                                    357 ;total                     Allocated to registers r6 
+                                    358 ;ret                       Allocated to registers r5 
+                                    359 ;------------------------------------------------------------
+                                    360 ;	control.c:101: static BYTE GetDescriptor()
+                                    361 ;	-----------------------------------------
+                                    362 ;	 function GetDescriptor
+                                    363 ;	-----------------------------------------
+      00001C                        364 _GetDescriptor:
+                                    365 ;	control.c:103: BYTE type = (wValue >> 8) & 0xFF;
+      00001C AF*01            [24]  366 	mov	r7,(_wValue + 1)
+                                    367 ;	control.c:104: BYTE typeIndex = (wValue & 0xFF) ;
+      00001E AE*00            [24]  368 	mov	r6,_wValue
+                                    369 ;	control.c:106: BYTE ret = FALSE;
+      000020 7D 00            [12]  370 	mov	r5,#0x00
+                                    371 ;	control.c:108: switch (type)
+      000022 BF 01 02         [24]  372 	cjne	r7,#0x01,00272$
+      000025 80 1A            [24]  373 	sjmp	00151$
+      000027                        374 00272$:
+      000027 BF 02 02         [24]  375 	cjne	r7,#0x02,00273$
+      00002A 80 46            [24]  376 	sjmp	00103$
+      00002C                        377 00273$:
+      00002C BF 03 03         [24]  378 	cjne	r7,#0x03,00274$
+      00002F 02r00rA9         [24]  379 	ljmp	00105$
+      000032                        380 00274$:
+      000032 BF 06 03         [24]  381 	cjne	r7,#0x06,00275$
+      000035 02r01r19         [24]  382 	ljmp	00164$
+      000038                        383 00275$:
+      000038 BF 22 03         [24]  384 	cjne	r7,#0x22,00276$
+      00003B 02r01r49         [24]  385 	ljmp	00167$
+      00003E                        386 00276$:
+      00003E 02r01r77         [24]  387 	ljmp	00116$
+                                    388 ;	control.c:112: for (i = 0; i < 0x12; i++)
+      000041                        389 00151$:
+      000041 7F 00            [12]  390 	mov	r7,#0x00
+      000043                        391 00117$:
+                                    392 ;	control.c:114: EP0.fifo = deviceDescriptor[i];
+      000043 EF               [12]  393 	mov	a,r7
+      000044 90r00r00         [24]  394 	mov	dptr,#_deviceDescriptor
+      000047 93               [24]  395 	movc	a,@a+dptr
+      000048 90 F1 DC         [24]  396 	mov	dptr,#(_EP0 + 0x001c)
+      00004B F0               [24]  397 	movx	@dptr,a
+                                    398 ;	control.c:112: for (i = 0; i < 0x12; i++)
+      00004C 0F               [12]  399 	inc	r7
+      00004D BF 12 00         [24]  400 	cjne	r7,#0x12,00277$
+      000050                        401 00277$:
+                                    402 ;	control.c:117: SendControlResponse(wLength < 0x12 ? wLength : 0x12);
+      000050 40 F1            [24]  403 	jc	00117$
+      000052 E5*00            [12]  404 	mov	a,_wLength
+      000054 94 12            [12]  405 	subb	a,#0x12
+      000056 E5*01            [12]  406 	mov	a,(_wLength + 1)
+      000058 94 00            [12]  407 	subb	a,#0x00
+      00005A 50 06            [24]  408 	jnc	00134$
+      00005C AC*00            [24]  409 	mov	r4,_wLength
+      00005E AF*01            [24]  410 	mov	r7,(_wLength + 1)
+      000060 80 04            [24]  411 	sjmp	00135$
+      000062                        412 00134$:
+      000062 7C 12            [12]  413 	mov	r4,#0x12
+      000064 7F 00            [12]  414 	mov	r7,#0x00
+      000066                        415 00135$:
+      000066 8C 82            [24]  416 	mov	dpl,r4
+      000068 8F 83            [24]  417 	mov	dph,r7
+      00006A 12r00r00         [24]  418 	lcall	_SendControlResponse
+                                    419 ;	control.c:118: ret = TRUE;
+      00006D 7D 01            [12]  420 	mov	r5,#0x01
+                                    421 ;	control.c:120: break;
+      00006F 02r01r77         [24]  422 	ljmp	00116$
+                                    423 ;	control.c:122: case 0x02:
+      000072                        424 00103$:
+                                    425 ;	control.c:124: total = wLength < sizeof(configDescriptor) ? wLength : sizeof(configDescriptor);
+      000072 C3               [12]  426 	clr	c
+      000073 E5*00            [12]  427 	mov	a,_wLength
+      000075 94 37            [12]  428 	subb	a,#0x37
+      000077 E5*01            [12]  429 	mov	a,(_wLength + 1)
+      000079 94 00            [12]  430 	subb	a,#0x00
+      00007B 50 06            [24]  431 	jnc	00136$
+      00007D AC*00            [24]  432 	mov	r4,_wLength
+      00007F AF*01            [24]  433 	mov	r7,(_wLength + 1)
+      000081 80 04            [24]  434 	sjmp	00137$
+      000083                        435 00136$:
+      000083 7C 37            [12]  436 	mov	r4,#0x37
+      000085 7F 00            [12]  437 	mov	r7,#0x00
+      000087                        438 00137$:
+                                    439 ;	control.c:125: for (i = 0; i < total; i++)
+      000087 7F 00            [12]  440 	mov	r7,#0x00
+      000089                        441 00120$:
+      000089 C3               [12]  442 	clr	c
+      00008A EF               [12]  443 	mov	a,r7
+      00008B 9C               [12]  444 	subb	a,r4
+      00008C 50 0D            [24]  445 	jnc	00104$
+                                    446 ;	control.c:127: EP0.fifo = configDescriptor[i];
+      00008E EF               [12]  447 	mov	a,r7
+      00008F 90r00r12         [24]  448 	mov	dptr,#_configDescriptor
+      000092 93               [24]  449 	movc	a,@a+dptr
+      000093 FB               [12]  450 	mov	r3,a
+      000094 90 F1 DC         [24]  451 	mov	dptr,#(_EP0 + 0x001c)
+      000097 F0               [24]  452 	movx	@dptr,a
+                                    453 ;	control.c:125: for (i = 0; i < total; i++)
+      000098 0F               [12]  454 	inc	r7
+      000099 80 EE            [24]  455 	sjmp	00120$
+      00009B                        456 00104$:
+                                    457 ;	control.c:130: SendControlResponse(total);
+      00009B 7F 00            [12]  458 	mov	r7,#0x00
+      00009D 8C 82            [24]  459 	mov	dpl,r4
+      00009F 8F 83            [24]  460 	mov	dph,r7
+      0000A1 12r00r00         [24]  461 	lcall	_SendControlResponse
+                                    462 ;	control.c:131: ret = TRUE;
+      0000A4 7D 01            [12]  463 	mov	r5,#0x01
+                                    464 ;	control.c:133: break;
+      0000A6 02r01r77         [24]  465 	ljmp	00116$
+                                    466 ;	control.c:135: case 0x03://string descriptor
+      0000A9                        467 00105$:
+                                    468 ;	control.c:137: switch (typeIndex){
+      0000A9 BE 00 37         [24]  469 	cjne	r6,#0x00,00108$
+                                    470 ;	control.c:139: total = wLength < sizeof(stringLanDescriptor) ? wLength : sizeof(stringLanDescriptor);
+      0000AC C3               [12]  471 	clr	c
+      0000AD E5*00            [12]  472 	mov	a,_wLength
+      0000AF 94 04            [12]  473 	subb	a,#0x04
+      0000B1 E5*01            [12]  474 	mov	a,(_wLength + 1)
+      0000B3 94 00            [12]  475 	subb	a,#0x00
+      0000B5 50 06            [24]  476 	jnc	00138$
+      0000B7 AE*00            [24]  477 	mov	r6,_wLength
+      0000B9 AF*01            [24]  478 	mov	r7,(_wLength + 1)
+      0000BB 80 04            [24]  479 	sjmp	00139$
+      0000BD                        480 00138$:
+      0000BD 7E 04            [12]  481 	mov	r6,#0x04
+      0000BF 7F 00            [12]  482 	mov	r7,#0x00
+      0000C1                        483 00139$:
+                                    484 ;	control.c:140: for (i = 0; i < total; i++)
+      0000C1 7F 00            [12]  485 	mov	r7,#0x00
+      0000C3                        486 00123$:
+      0000C3 C3               [12]  487 	clr	c
+      0000C4 EF               [12]  488 	mov	a,r7
+      0000C5 9E               [12]  489 	subb	a,r6
+      0000C6 50 0D            [24]  490 	jnc	00107$
+                                    491 ;	control.c:142: EP0.fifo = stringLanDescriptor[i];
+      0000C8 EF               [12]  492 	mov	a,r7
+      0000C9 90r00r88         [24]  493 	mov	dptr,#_stringLanDescriptor
+      0000CC 93               [24]  494 	movc	a,@a+dptr
+      0000CD FC               [12]  495 	mov	r4,a
+      0000CE 90 F1 DC         [24]  496 	mov	dptr,#(_EP0 + 0x001c)
+      0000D1 F0               [24]  497 	movx	@dptr,a
+                                    498 ;	control.c:140: for (i = 0; i < total; i++)
+      0000D2 0F               [12]  499 	inc	r7
+      0000D3 80 EE            [24]  500 	sjmp	00123$
+      0000D5                        501 00107$:
+                                    502 ;	control.c:144: SendControlResponse(total);
+      0000D5 7F 00            [12]  503 	mov	r7,#0x00
+      0000D7 8E 82            [24]  504 	mov	dpl,r6
+      0000D9 8F 83            [24]  505 	mov	dph,r7
+      0000DB 12r00r00         [24]  506 	lcall	_SendControlResponse
+                                    507 ;	control.c:145: ret = TRUE;					
+      0000DE 7D 01            [12]  508 	mov	r5,#0x01
+                                    509 ;	control.c:146: break;
+      0000E0 02r01r77         [24]  510 	ljmp	00116$
+                                    511 ;	control.c:148: default:{
+      0000E3                        512 00108$:
+                                    513 ;	control.c:149: total = wLength < sizeof(stringDescriptor) ? wLength : sizeof(stringDescriptor);
+      0000E3 C3               [12]  514 	clr	c
+      0000E4 E5*00            [12]  515 	mov	a,_wLength
+      0000E6 94 16            [12]  516 	subb	a,#0x16
+      0000E8 E5*01            [12]  517 	mov	a,(_wLength + 1)
+      0000EA 94 00            [12]  518 	subb	a,#0x00
+      0000EC 50 06            [24]  519 	jnc	00140$
+      0000EE AE*00            [24]  520 	mov	r6,_wLength
+      0000F0 AF*01            [24]  521 	mov	r7,(_wLength + 1)
+      0000F2 80 04            [24]  522 	sjmp	00141$
+      0000F4                        523 00140$:
+      0000F4 7E 16            [12]  524 	mov	r6,#0x16
+      0000F6 7F 00            [12]  525 	mov	r7,#0x00
+      0000F8                        526 00141$:
+                                    527 ;	control.c:150: for (i = 0; i < total; i++)
+      0000F8 7F 00            [12]  528 	mov	r7,#0x00
+      0000FA                        529 00126$:
+      0000FA C3               [12]  530 	clr	c
+      0000FB EF               [12]  531 	mov	a,r7
+      0000FC 9E               [12]  532 	subb	a,r6
+      0000FD 50 0D            [24]  533 	jnc	00109$
+                                    534 ;	control.c:152: EP0.fifo = stringDescriptor[i];
+      0000FF EF               [12]  535 	mov	a,r7
+      000100 90r00r8C         [24]  536 	mov	dptr,#_stringDescriptor
+      000103 93               [24]  537 	movc	a,@a+dptr
+      000104 FC               [12]  538 	mov	r4,a
+      000105 90 F1 DC         [24]  539 	mov	dptr,#(_EP0 + 0x001c)
+      000108 F0               [24]  540 	movx	@dptr,a
+                                    541 ;	control.c:150: for (i = 0; i < total; i++)
+      000109 0F               [12]  542 	inc	r7
+      00010A 80 EE            [24]  543 	sjmp	00126$
+      00010C                        544 00109$:
+                                    545 ;	control.c:154: SendControlResponse(total);
+      00010C 7F 00            [12]  546 	mov	r7,#0x00
+      00010E 8E 82            [24]  547 	mov	dpl,r6
+      000110 8F 83            [24]  548 	mov	dph,r7
+      000112 12r00r00         [24]  549 	lcall	_SendControlResponse
+                                    550 ;	control.c:155: ret = TRUE;					
+      000115 7D 01            [12]  551 	mov	r5,#0x01
+                                    552 ;	control.c:160: break;
+                                    553 ;	control.c:164: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
+      000117 80 5E            [24]  554 	sjmp	00116$
+      000119                        555 00164$:
+      000119 7F 00            [12]  556 	mov	r7,#0x00
+      00011B                        557 00128$:
+                                    558 ;	control.c:166: EP0.fifo = deviceQualifierDescriptor[i];
+      00011B EF               [12]  559 	mov	a,r7
+      00011C 90r00rD6         [24]  560 	mov	dptr,#_deviceQualifierDescriptor
+      00011F 93               [24]  561 	movc	a,@a+dptr
+      000120 90 F1 DC         [24]  562 	mov	dptr,#(_EP0 + 0x001c)
+      000123 F0               [24]  563 	movx	@dptr,a
+                                    564 ;	control.c:164: for (i = 0; i < sizeof(deviceQualifierDescriptor); i++)
+      000124 0F               [12]  565 	inc	r7
+      000125 BF 0A 00         [24]  566 	cjne	r7,#0x0a,00288$
+      000128                        567 00288$:
+                                    568 ;	control.c:169: SendControlResponse(wLength < sizeof(deviceQualifierDescriptor) ? wLength : sizeof(deviceQualifierDescriptor));
+      000128 40 F1            [24]  569 	jc	00128$
+      00012A E5*00            [12]  570 	mov	a,_wLength
+      00012C 94 0A            [12]  571 	subb	a,#0x0a
+      00012E E5*01            [12]  572 	mov	a,(_wLength + 1)
+      000130 94 00            [12]  573 	subb	a,#0x00
+      000132 50 06            [24]  574 	jnc	00142$
+      000134 AE*00            [24]  575 	mov	r6,_wLength
+      000136 AF*01            [24]  576 	mov	r7,(_wLength + 1)
+      000138 80 04            [24]  577 	sjmp	00143$
+      00013A                        578 00142$:
+      00013A 7E 0A            [12]  579 	mov	r6,#0x0a
+      00013C 7F 00            [12]  580 	mov	r7,#0x00
+      00013E                        581 00143$:
+      00013E 8E 82            [24]  582 	mov	dpl,r6
+      000140 8F 83            [24]  583 	mov	dph,r7
+      000142 12r00r00         [24]  584 	lcall	_SendControlResponse
+                                    585 ;	control.c:170: ret = TRUE;
+      000145 7D 01            [12]  586 	mov	r5,#0x01
+                                    587 ;	control.c:172: break;
+                                    588 ;	control.c:176: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
+      000147 80 2E            [24]  589 	sjmp	00116$
+      000149                        590 00167$:
+      000149 7F 00            [12]  591 	mov	r7,#0x00
+      00014B                        592 00130$:
+                                    593 ;	control.c:178: EP0.fifo = HIDreportDescriptor[i];
+      00014B EF               [12]  594 	mov	a,r7
+      00014C 90r00r49         [24]  595 	mov	dptr,#_HIDreportDescriptor
+      00014F 93               [24]  596 	movc	a,@a+dptr
+      000150 90 F1 DC         [24]  597 	mov	dptr,#(_EP0 + 0x001c)
+      000153 F0               [24]  598 	movx	@dptr,a
+                                    599 ;	control.c:176: for (i = 0; i < sizeof(HIDreportDescriptor); i++)
+      000154 0F               [12]  600 	inc	r7
+      000155 BF 3F 00         [24]  601 	cjne	r7,#0x3f,00291$
+      000158                        602 00291$:
+                                    603 ;	control.c:181: SendControlResponse(wLength < sizeof(HIDreportDescriptor) ? wLength : sizeof(HIDreportDescriptor));
+      000158 40 F1            [24]  604 	jc	00130$
+      00015A E5*00            [12]  605 	mov	a,_wLength
+      00015C 94 3F            [12]  606 	subb	a,#0x3f
+      00015E E5*01            [12]  607 	mov	a,(_wLength + 1)
+      000160 94 00            [12]  608 	subb	a,#0x00
+      000162 50 06            [24]  609 	jnc	00144$
+      000164 AE*00            [24]  610 	mov	r6,_wLength
+      000166 AF*01            [24]  611 	mov	r7,(_wLength + 1)
+      000168 80 04            [24]  612 	sjmp	00145$
+      00016A                        613 00144$:
+      00016A 7E 3F            [12]  614 	mov	r6,#0x3f
+      00016C 7F 00            [12]  615 	mov	r7,#0x00
+      00016E                        616 00145$:
+      00016E 8E 82            [24]  617 	mov	dpl,r6
+      000170 8F 83            [24]  618 	mov	dph,r7
+      000172 12r00r00         [24]  619 	lcall	_SendControlResponse
+                                    620 ;	control.c:182: ret = TRUE;
+      000175 7D 01            [12]  621 	mov	r5,#0x01
+                                    622 ;	control.c:190: }
+      000177                        623 00116$:
+                                    624 ;	control.c:192: return ret;
+      000177 8D 82            [24]  625 	mov	dpl,r5
+                                    626 ;	control.c:193: }
+      000179 22               [24]  627 	ret
+                                    628 ;------------------------------------------------------------
+                                    629 ;Allocation info for local variables in function 'SetConfiguration'
+                                    630 ;------------------------------------------------------------
+                                    631 ;ret                       Allocated to registers r7 
+                                    632 ;------------------------------------------------------------
+                                    633 ;	control.c:195: static BYTE SetConfiguration()
+                                    634 ;	-----------------------------------------
+                                    635 ;	 function SetConfiguration
+                                    636 ;	-----------------------------------------
+      00017A                        637 _SetConfiguration:
+                                    638 ;	control.c:197: BYTE ret = FALSE;
+      00017A 7F 00            [12]  639 	mov	r7,#0x00
+                                    640 ;	control.c:199: if (wValue <= 1)
+      00017C C3               [12]  641 	clr	c
+      00017D 74 01            [12]  642 	mov	a,#0x01
+      00017F 95*00            [12]  643 	subb	a,_wValue
+      000181 E4               [12]  644 	clr	a
+      000182 95*01            [12]  645 	subb	a,(_wValue + 1)
+      000184 40 05            [24]  646 	jc	00102$
+                                    647 ;	control.c:201: EP0ACK();
+      000186 12r00r00         [24]  648 	lcall	_EP0ACK
+                                    649 ;	control.c:202: ret = TRUE;
+      000189 7F 01            [12]  650 	mov	r7,#0x01
+      00018B                        651 00102$:
+                                    652 ;	control.c:205: return ret;
+      00018B 8F 82            [24]  653 	mov	dpl,r7
+                                    654 ;	control.c:206: }
+      00018D 22               [24]  655 	ret
+                                    656 ;------------------------------------------------------------
+                                    657 ;Allocation info for local variables in function 'HandleStandardRequest'
+                                    658 ;------------------------------------------------------------
+                                    659 ;	control.c:208: BYTE HandleStandardRequest()
+                                    660 ;	-----------------------------------------
+                                    661 ;	 function HandleStandardRequest
+                                    662 ;	-----------------------------------------
+      00018E                        663 _HandleStandardRequest:
+                                    664 ;	control.c:210: switch(bRequest)
+      00018E 74 05            [12]  665 	mov	a,#0x05
+      000190 B5*00 02         [24]  666 	cjne	a,_bRequest,00120$
+      000193 80 0E            [24]  667 	sjmp	00101$
+      000195                        668 00120$:
+      000195 74 06            [12]  669 	mov	a,#0x06
+      000197 B5*00 02         [24]  670 	cjne	a,_bRequest,00121$
+      00019A 80 0A            [24]  671 	sjmp	00102$
+      00019C                        672 00121$:
+      00019C 74 09            [12]  673 	mov	a,#0x09
+                                    674 ;	control.c:212: case 0x05:
+      00019E B5*00 0B         [24]  675 	cjne	a,_bRequest,00104$
+      0001A1 80 06            [24]  676 	sjmp	00103$
+      0001A3                        677 00101$:
+                                    678 ;	control.c:214: return SetAddress();
+                                    679 ;	control.c:216: case 0x06:
+      0001A3 02r00r07         [24]  680 	ljmp	_SetAddress
+      0001A6                        681 00102$:
+                                    682 ;	control.c:218: return GetDescriptor();
+                                    683 ;	control.c:220: case 0x09:
+      0001A6 02r00r1C         [24]  684 	ljmp	_GetDescriptor
+      0001A9                        685 00103$:
+                                    686 ;	control.c:222: return SetConfiguration();
+                                    687 ;	control.c:224: default:
+      0001A9 02r01r7A         [24]  688 	ljmp	_SetConfiguration
+      0001AC                        689 00104$:
+                                    690 ;	control.c:226: return FALSE;
+      0001AC 75 82 00         [24]  691 	mov	dpl,#0x00
+                                    692 ;	control.c:228: }
+                                    693 ;	control.c:229: }
+      0001AF 22               [24]  694 	ret
+                                    695 ;------------------------------------------------------------
+                                    696 ;Allocation info for local variables in function 'GetMaxLUN'
+                                    697 ;------------------------------------------------------------
+                                    698 ;	control.c:231: static BYTE GetMaxLUN()
+                                    699 ;	-----------------------------------------
+                                    700 ;	 function GetMaxLUN
+                                    701 ;	-----------------------------------------
+      0001B0                        702 _GetMaxLUN:
+                                    703 ;	control.c:233: EP0.fifo = 0x00;
+      0001B0 90 F1 DC         [24]  704 	mov	dptr,#(_EP0 + 0x001c)
+      0001B3 E4               [12]  705 	clr	a
+      0001B4 F0               [24]  706 	movx	@dptr,a
+                                    707 ;	control.c:234: SendControlResponse(wLength < 0x01 ? wLength : 0x01);
+      0001B5 C3               [12]  708 	clr	c
+      0001B6 E5*00            [12]  709 	mov	a,_wLength
+      0001B8 94 01            [12]  710 	subb	a,#0x01
+      0001BA E5*01            [12]  711 	mov	a,(_wLength + 1)
+      0001BC 94 00            [12]  712 	subb	a,#0x00
+      0001BE 50 06            [24]  713 	jnc	00103$
+      0001C0 AE*00            [24]  714 	mov	r6,_wLength
+      0001C2 AF*01            [24]  715 	mov	r7,(_wLength + 1)
+      0001C4 80 04            [24]  716 	sjmp	00104$
+      0001C6                        717 00103$:
+      0001C6 7E 01            [12]  718 	mov	r6,#0x01
+      0001C8 7F 00            [12]  719 	mov	r7,#0x00
+      0001CA                        720 00104$:
+      0001CA 8E 82            [24]  721 	mov	dpl,r6
+      0001CC 8F 83            [24]  722 	mov	dph,r7
+      0001CE 12r00r00         [24]  723 	lcall	_SendControlResponse
+                                    724 ;	control.c:236: return TRUE;
+      0001D1 75 82 01         [24]  725 	mov	dpl,#0x01
+                                    726 ;	control.c:237: }
+      0001D4 22               [24]  727 	ret
+                                    728 ;------------------------------------------------------------
+                                    729 ;Allocation info for local variables in function 'HandleClassRequest'
+                                    730 ;------------------------------------------------------------
+                                    731 ;	control.c:239: BYTE HandleClassRequest()
+                                    732 ;	-----------------------------------------
+                                    733 ;	 function HandleClassRequest
+                                    734 ;	-----------------------------------------
+      0001D5                        735 _HandleClassRequest:
+                                    736 ;	control.c:241: switch(bRequest)
+      0001D5 74 09            [12]  737 	mov	a,#0x09
+      0001D7 B5*00 02         [24]  738 	cjne	a,_bRequest,00120$
+      0001DA 80 0E            [24]  739 	sjmp	00101$
+      0001DC                        740 00120$:
+      0001DC 74 0A            [12]  741 	mov	a,#0x0a
+      0001DE B5*00 02         [24]  742 	cjne	a,_bRequest,00121$
+      0001E1 80 11            [24]  743 	sjmp	00102$
+      0001E3                        744 00121$:
+      0001E3 74 FE            [12]  745 	mov	a,#0xfe
+                                    746 ;	control.c:243: case 0x09:
+      0001E5 B5*00 16         [24]  747 	cjne	a,_bRequest,00104$
+      0001E8 80 11            [24]  748 	sjmp	00103$
+      0001EA                        749 00101$:
+                                    750 ;	control.c:245: EP0CS = 0x05;
+      0001EA 90 F0 48         [24]  751 	mov	dptr,#_EP0CS
+      0001ED 74 05            [12]  752 	mov	a,#0x05
+      0001EF F0               [24]  753 	movx	@dptr,a
+                                    754 ;	control.c:246: return TRUE;
+      0001F0 75 82 01         [24]  755 	mov	dpl,#0x01
+                                    756 ;	control.c:248: case 0x0A:
+      0001F3 22               [24]  757 	ret
+      0001F4                        758 00102$:
+                                    759 ;	control.c:250: EP0ACK();
+      0001F4 12r00r00         [24]  760 	lcall	_EP0ACK
+                                    761 ;	control.c:251: return TRUE;
+      0001F7 75 82 01         [24]  762 	mov	dpl,#0x01
+                                    763 ;	control.c:253: case 0xFE:
+      0001FA 22               [24]  764 	ret
+      0001FB                        765 00103$:
+                                    766 ;	control.c:255: return GetMaxLUN();
+                                    767 ;	control.c:257: default:
+      0001FB 02r01rB0         [24]  768 	ljmp	_GetMaxLUN
+      0001FE                        769 00104$:
+                                    770 ;	control.c:259: return FALSE;
+      0001FE 75 82 00         [24]  771 	mov	dpl,#0x00
+                                    772 ;	control.c:261: }
+                                    773 ;	control.c:262: }
+      000201 22               [24]  774 	ret
+                                    775 ;------------------------------------------------------------
+                                    776 ;Allocation info for local variables in function 'HandleVendorRequest'
+                                    777 ;------------------------------------------------------------
+                                    778 ;	control.c:264: BYTE HandleVendorRequest()
+                                    779 ;	-----------------------------------------
+                                    780 ;	 function HandleVendorRequest
+                                    781 ;	-----------------------------------------
+      000202                        782 _HandleVendorRequest:
+                                    783 ;	control.c:266: return FALSE;
+      000202 75 82 00         [24]  784 	mov	dpl,#0x00
+                                    785 ;	control.c:267: }
+      000205 22               [24]  786 	ret
+                                    787 	.area CSEG    (CODE)
+                                    788 	.area CONST   (CODE)
+      000000                        789 _deviceDescriptor:
+      000000 12                     790 	.db #0x12	; 18
+      000001 01                     791 	.db #0x01	; 1
+      000002 00                     792 	.db #0x00	; 0
+      000003 02                     793 	.db #0x02	; 2
+      000004 03                     794 	.db #0x03	; 3
+      000005 01                     795 	.db #0x01	; 1
+      000006 00                     796 	.db #0x00	; 0
+      000007 40                     797 	.db #0x40	; 64
+      000008 B4                     798 	.db #0xb4	; 180
+      000009 04                     799 	.db #0x04	; 4
+      00000A 05                     800 	.db #0x05	; 5
+      00000B 69                     801 	.db #0x69	; 105	'i'
+      00000C 00                     802 	.db #0x00	; 0
+      00000D 00                     803 	.db #0x00	; 0
+      00000E 01                     804 	.db #0x01	; 1
+      00000F 02                     805 	.db #0x02	; 2
+      000010 03                     806 	.db #0x03	; 3
+      000011 01                     807 	.db #0x01	; 1
+      000012                        808 _configDescriptor:
+      000012 09                     809 	.db #0x09	; 9
+      000013 02                     810 	.db #0x02	; 2
+      000014 37                     811 	.db #0x37	; 55	'7'
+      000015 00                     812 	.db #0x00	; 0
+      000016 01                     813 	.db #0x01	; 1
+      000017 01                     814 	.db #0x01	; 1
+      000018 00                     815 	.db #0x00	; 0
+      000019 80                     816 	.db #0x80	; 128
+      00001A 4B                     817 	.db #0x4b	; 75	'K'
+      00001B 09                     818 	.db #0x09	; 9
+      00001C 04                     819 	.db #0x04	; 4
+      00001D 00                     820 	.db #0x00	; 0
+      00001E 00                     821 	.db #0x00	; 0
+      00001F 04                     822 	.db #0x04	; 4
+      000020 03                     823 	.db #0x03	; 3
+      000021 01                     824 	.db #0x01	; 1
+      000022 01                     825 	.db #0x01	; 1
+      000023 00                     826 	.db #0x00	; 0
+      000024 09                     827 	.db #0x09	; 9
+      000025 21                     828 	.db #0x21	; 33
+      000026 01                     829 	.db #0x01	; 1
+      000027 01                     830 	.db #0x01	; 1
+      000028 00                     831 	.db #0x00	; 0
+      000029 01                     832 	.db #0x01	; 1
+      00002A 22                     833 	.db #0x22	; 34
+      00002B 3F                     834 	.db #0x3f	; 63
+      00002C 00                     835 	.db #0x00	; 0
+      00002D 07                     836 	.db #0x07	; 7
+      00002E 05                     837 	.db #0x05	; 5
+      00002F 81                     838 	.db #0x81	; 129
+      000030 00                     839 	.db #0x00	; 0
+      000031 08                     840 	.db #0x08	; 8
+      000032 00                     841 	.db #0x00	; 0
+      000033 00                     842 	.db #0x00	; 0
+      000034 07                     843 	.db #0x07	; 7
+      000035 05                     844 	.db #0x05	; 5
+      000036 02                     845 	.db #0x02	; 2
+      000037 00                     846 	.db #0x00	; 0
+      000038 08                     847 	.db #0x08	; 8
+      000039 00                     848 	.db #0x00	; 0
+      00003A 00                     849 	.db #0x00	; 0
+      00003B 07                     850 	.db #0x07	; 7
+      00003C 05                     851 	.db #0x05	; 5
+      00003D 83                     852 	.db #0x83	; 131
+      00003E 03                     853 	.db #0x03	; 3
+      00003F 08                     854 	.db #0x08	; 8
+      000040 00                     855 	.db #0x00	; 0
+      000041 00                     856 	.db #0x00	; 0
+      000042 07                     857 	.db #0x07	; 7
+      000043 05                     858 	.db #0x05	; 5
+      000044 04                     859 	.db #0x04	; 4
+      000045 03                     860 	.db #0x03	; 3
+      000046 08                     861 	.db #0x08	; 8
+      000047 00                     862 	.db #0x00	; 0
+      000048 01                     863 	.db #0x01	; 1
+      000049                        864 _HIDreportDescriptor:
+      000049 05                     865 	.db #0x05	; 5
+      00004A 01                     866 	.db #0x01	; 1
+      00004B 09                     867 	.db #0x09	; 9
+      00004C 06                     868 	.db #0x06	; 6
+      00004D A1                     869 	.db #0xa1	; 161
+      00004E 01                     870 	.db #0x01	; 1
+      00004F 05                     871 	.db #0x05	; 5
+      000050 07                     872 	.db #0x07	; 7
+      000051 19                     873 	.db #0x19	; 25
+      000052 E0                     874 	.db #0xe0	; 224
+      000053 29                     875 	.db #0x29	; 41
+      000054 E7                     876 	.db #0xe7	; 231
+      000055 15                     877 	.db #0x15	; 21
+      000056 00                     878 	.db #0x00	; 0
+      000057 25                     879 	.db #0x25	; 37
+      000058 01                     880 	.db #0x01	; 1
+      000059 75                     881 	.db #0x75	; 117	'u'
+      00005A 01                     882 	.db #0x01	; 1
+      00005B 95                     883 	.db #0x95	; 149
+      00005C 08                     884 	.db #0x08	; 8
+      00005D 81                     885 	.db #0x81	; 129
+      00005E 02                     886 	.db #0x02	; 2
+      00005F 95                     887 	.db #0x95	; 149
+      000060 01                     888 	.db #0x01	; 1
+      000061 75                     889 	.db #0x75	; 117	'u'
+      000062 08                     890 	.db #0x08	; 8
+      000063 81                     891 	.db #0x81	; 129
+      000064 01                     892 	.db #0x01	; 1
+      000065 95                     893 	.db #0x95	; 149
+      000066 05                     894 	.db #0x05	; 5
+      000067 75                     895 	.db #0x75	; 117	'u'
+      000068 01                     896 	.db #0x01	; 1
+      000069 05                     897 	.db #0x05	; 5
+      00006A 08                     898 	.db #0x08	; 8
+      00006B 19                     899 	.db #0x19	; 25
+      00006C 01                     900 	.db #0x01	; 1
+      00006D 29                     901 	.db #0x29	; 41
+      00006E 05                     902 	.db #0x05	; 5
+      00006F 91                     903 	.db #0x91	; 145
+      000070 02                     904 	.db #0x02	; 2
+      000071 95                     905 	.db #0x95	; 149
+      000072 01                     906 	.db #0x01	; 1
+      000073 75                     907 	.db #0x75	; 117	'u'
+      000074 03                     908 	.db #0x03	; 3
+      000075 91                     909 	.db #0x91	; 145
+      000076 01                     910 	.db #0x01	; 1
+      000077 95                     911 	.db #0x95	; 149
+      000078 06                     912 	.db #0x06	; 6
+      000079 75                     913 	.db #0x75	; 117	'u'
+      00007A 08                     914 	.db #0x08	; 8
+      00007B 15                     915 	.db #0x15	; 21
+      00007C 00                     916 	.db #0x00	; 0
+      00007D 25                     917 	.db #0x25	; 37
+      00007E 65                     918 	.db #0x65	; 101	'e'
+      00007F 05                     919 	.db #0x05	; 5
+      000080 07                     920 	.db #0x07	; 7
+      000081 19                     921 	.db #0x19	; 25
+      000082 00                     922 	.db #0x00	; 0
+      000083 29                     923 	.db #0x29	; 41
+      000084 65                     924 	.db #0x65	; 101	'e'
+      000085 81                     925 	.db #0x81	; 129
+      000086 00                     926 	.db #0x00	; 0
+      000087 C0                     927 	.db #0xc0	; 192
+      000088                        928 _stringLanDescriptor:
+      000088 04                     929 	.db #0x04	; 4
+      000089 03                     930 	.db #0x03	; 3
+      00008A 09                     931 	.db #0x09	; 9
+      00008B 04                     932 	.db #0x04	; 4
+      00008C                        933 _stringDescriptor:
+      00008C 16                     934 	.db #0x16	; 22
+      00008D 03                     935 	.db #0x03	; 3
+      00008E 56                     936 	.db #0x56	; 86	'V'
+      00008F 00                     937 	.db #0x00	; 0
+      000090 69                     938 	.db #0x69	; 105	'i'
+      000091 00                     939 	.db #0x00	; 0
+      000092 72                     940 	.db #0x72	; 114	'r'
+      000093 00                     941 	.db #0x00	; 0
+      000094 74                     942 	.db #0x74	; 116	't'
+      000095 00                     943 	.db #0x00	; 0
+      000096 75                     944 	.db #0x75	; 117	'u'
+      000097 00                     945 	.db #0x00	; 0
+      000098 61                     946 	.db #0x61	; 97	'a'
+      000099 00                     947 	.db #0x00	; 0
+      00009A 6C                     948 	.db #0x6c	; 108	'l'
+      00009B 00                     949 	.db #0x00	; 0
+      00009C 42                     950 	.db #0x42	; 66	'B'
+      00009D 00                     951 	.db #0x00	; 0
+      00009E 6F                     952 	.db #0x6f	; 111	'o'
+      00009F 00                     953 	.db #0x00	; 0
+      0000A0 78                     954 	.db #0x78	; 120	'x'
+      0000A1 00                     955 	.db #0x00	; 0
+      0000A2                        956 _HIDreportDescriptorMouse:
+      0000A2 05                     957 	.db #0x05	; 5
+      0000A3 01                     958 	.db #0x01	; 1
+      0000A4 09                     959 	.db #0x09	; 9
+      0000A5 02                     960 	.db #0x02	; 2
+      0000A6 A1                     961 	.db #0xa1	; 161
+      0000A7 01                     962 	.db #0x01	; 1
+      0000A8 09                     963 	.db #0x09	; 9
+      0000A9 01                     964 	.db #0x01	; 1
+      0000AA A1                     965 	.db #0xa1	; 161
+      0000AB 00                     966 	.db #0x00	; 0
+      0000AC 05                     967 	.db #0x05	; 5
+      0000AD 09                     968 	.db #0x09	; 9
+      0000AE 19                     969 	.db #0x19	; 25
+      0000AF 01                     970 	.db #0x01	; 1
+      0000B0 29                     971 	.db #0x29	; 41
+      0000B1 03                     972 	.db #0x03	; 3
+      0000B2 15                     973 	.db #0x15	; 21
+      0000B3 00                     974 	.db #0x00	; 0
+      0000B4 25                     975 	.db #0x25	; 37
+      0000B5 01                     976 	.db #0x01	; 1
+      0000B6 95                     977 	.db #0x95	; 149
+      0000B7 03                     978 	.db #0x03	; 3
+      0000B8 75                     979 	.db #0x75	; 117	'u'
+      0000B9 01                     980 	.db #0x01	; 1
+      0000BA 81                     981 	.db #0x81	; 129
+      0000BB 02                     982 	.db #0x02	; 2
+      0000BC 95                     983 	.db #0x95	; 149
+      0000BD 01                     984 	.db #0x01	; 1
+      0000BE 75                     985 	.db #0x75	; 117	'u'
+      0000BF 05                     986 	.db #0x05	; 5
+      0000C0 81                     987 	.db #0x81	; 129
+      0000C1 03                     988 	.db #0x03	; 3
+      0000C2 05                     989 	.db #0x05	; 5
+      0000C3 01                     990 	.db #0x01	; 1
+      0000C4 09                     991 	.db #0x09	; 9
+      0000C5 30                     992 	.db #0x30	; 48	'0'
+      0000C6 09                     993 	.db #0x09	; 9
+      0000C7 31                     994 	.db #0x31	; 49	'1'
+      0000C8 09                     995 	.db #0x09	; 9
+      0000C9 38                     996 	.db #0x38	; 56	'8'
+      0000CA 15                     997 	.db #0x15	; 21
+      0000CB 81                     998 	.db #0x81	; 129
+      0000CC 25                     999 	.db #0x25	; 37
+      0000CD 7F                    1000 	.db #0x7f	; 127
+      0000CE 75                    1001 	.db #0x75	; 117	'u'
+      0000CF 08                    1002 	.db #0x08	; 8
+      0000D0 95                    1003 	.db #0x95	; 149
+      0000D1 03                    1004 	.db #0x03	; 3
+      0000D2 81                    1005 	.db #0x81	; 129
+      0000D3 06                    1006 	.db #0x06	; 6
+      0000D4 C0                    1007 	.db #0xc0	; 192
+      0000D5 C0                    1008 	.db #0xc0	; 192
+      0000D6                       1009 _deviceQualifierDescriptor:
+      0000D6 0A                    1010 	.db #0x0a	; 10
+      0000D7 06                    1011 	.db #0x06	; 6
+      0000D8 00                    1012 	.db #0x00	; 0
+      0000D9 02                    1013 	.db #0x02	; 2
+      0000DA 00                    1014 	.db #0x00	; 0
+      0000DB 00                    1015 	.db #0x00	; 0
+      0000DC 00                    1016 	.db #0x00	; 0
+      0000DD 40                    1017 	.db #0x40	; 64
+      0000DE 01                    1018 	.db #0x01	; 1
+      0000DF 00                    1019 	.db #0x00	; 0
+                                   1020 	.area XINIT   (CODE)
+                                   1021 	.area CABS    (ABS,CODE)

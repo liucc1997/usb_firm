@@ -3,7 +3,7 @@
 #include "timers.h"
 
 static const BYTE deviceDescriptor[] = { 0x12,/*描述符长度*/ 0x01,/*描述符类型*/ 0x00, 0x02,/*USB版本号*/ 0x03, 0x01, 0x00, 0x40/*端点0支持最大数据包长度*/,
-                                         0xB4, 0x04/*供应商ID*/, 0x05, 0x66,/*产品ID*/ 0x00, 0x00,/*设备版本号*/ 0x00, 0x00, 0x00, 0x01/*配置数*/ };
+                                         0xB4, 0x04/*供应商ID*/, 0x05, 0x69,/*产品ID*/ 0x00, 0x00,/*设备版本号*/ 0x01, 0x02, 0x03, 0x01/*配置数*/ };
 static const BYTE configDescriptor[] = { 0x09, 0x02, sizeof(configDescriptor) & 0xFF, sizeof(configDescriptor) >> 8, 0x01/*接口数*/, 0x01, 0x00, 0x80, 0x4B,
 										 0x09, 0x04, 0x00/*接口号*/, 0x00, 0x04/*端点数*/, 0x03, 0x01, 0x01, 0x00,//接口描述符
 										 0x09/*长度*/, 0x21, 0x01, 0x01/*规范版本*/, 0x00/*国家*/, 0x01/*附属类个数*/, 0x22/*附属类类型*/,//Hid描述符
@@ -21,6 +21,9 @@ static const BYTE HIDreportDescriptor[] = { 0x05, 0x01, 0x09, 0x06, 0xA1, 0x01, 
 											0x91, 0x02,	0x95, 0x01, 0x75, 0x03, 0x91, 0x01, 0x95, 0x06,
 											0x75, 0x08, 0x15, 0x00, 0x25, 0x65, 0x05, 0x07, 0x19, 0x00,
 											0x29, 0x65, 0x81, 0x00, 0xC0 };
+static const BYTE stringLanDescriptor[] = {0x04/*length*/,0x03,	0x09, 0x04};
+static const BYTE stringDescriptor[] = {0x16/*length*/,0x03,											
+										0x56,0x00,0x69,0x00,0x72,0x00,0x74,0x00,0x75,0x00,0x61,0x00,0x6c,0x00,0x42,0x00,0x6f,0x00,0x78,0x00 };																						
 static const BYTE HIDreportDescriptorMouse[] =	{ 
 											0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
 											//鼠标   
@@ -98,6 +101,7 @@ static BYTE SetAddress()
 static BYTE GetDescriptor()
 {
 	BYTE type = (wValue >> 8) & 0xFF;
+	BYTE typeIndex = (wValue & 0xFF) ;
 	BYTE i, total;
 	BYTE ret = FALSE;
 
@@ -125,6 +129,33 @@ static BYTE GetDescriptor()
 
 			SendControlResponse(total);
 			ret = TRUE;
+
+			break;
+		}
+		case 0x03://string descriptor
+		{
+			switch (typeIndex){
+				case 0x00:{
+					total = wLength < sizeof(stringLanDescriptor) ? wLength : sizeof(stringLanDescriptor);
+					for (i = 0; i < total; i++)
+					{
+						EP0.fifo = stringLanDescriptor[i];
+					}
+					SendControlResponse(total);
+					ret = TRUE;					
+					break;
+				}
+				default:{
+					total = wLength < sizeof(stringDescriptor) ? wLength : sizeof(stringDescriptor);
+					for (i = 0; i < total; i++)
+					{
+						EP0.fifo = stringDescriptor[i];
+					}
+					SendControlResponse(total);
+					ret = TRUE;					
+					break;
+				}				
+			}
 
 			break;
 		}
